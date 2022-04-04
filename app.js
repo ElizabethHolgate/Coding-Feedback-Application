@@ -20,10 +20,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/', (req, res) => {
     res.render('home');
 });
-app.get('/addlecturer', async (req, res) => {
-    const lec = new Lecturer({name: "Shirley Atkinson", class: "COMP2000"});
-    await lec.save();
-    res.send(lec);
+app.get('/lecturer', async(req, res) => {
+    const lecturers = await Lecturer.find({});
+    res.render('lecturer/index', { lecturers })
 });
 
 app.listen(3000, () => {

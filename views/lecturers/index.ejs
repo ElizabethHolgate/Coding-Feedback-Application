@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Classes</title>
 </head>
 <body>
-    <h1>Home Code Feedback</h1>
-    <a href="./modules">List All Modules</a>
+    <h1>All Classes</h1>
+    <p> <%= lecturer[0].name %></p>
+    <ul>
+        <% for (let c of lecturer[0].modules){%>
+            <a href=""><li> <%= c.code %></li></a>
+        <% } %>
+    </ul>
 </body>
 </html>

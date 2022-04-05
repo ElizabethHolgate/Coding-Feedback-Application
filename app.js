@@ -62,6 +62,12 @@ app.put('/modules/:id', async (req, res) => {
     res.redirect(`/modules/${module._id}`)
 });
 
+app.delete('/modules/:id', async (req, res) => {
+    const { id } = req.params;
+    await Module.findByIdAndDelete(id);
+    res.redirect('/modules');
+});
+
 app.listen(3000, () => {
     console.log('Serving on port 3000')
 });

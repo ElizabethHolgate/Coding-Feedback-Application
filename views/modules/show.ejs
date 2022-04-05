@@ -9,7 +9,9 @@
 <body>
     <h1><%= module.code %>: <%= module.title %></h1>
     <p><%= module.description %></p>
-    <a href="">Edit <%= module.code %> Details</a>
+    <a href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
     <a href="">Delete <%= module.code %></a>
+    <br>
+    <a href="/modules">All Modules</a>
 </body>
 </html>

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 const Lecturer = require('./models/lecturer');
 const Module = require('./models/module');
 
@@ -19,23 +20,27 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
-//app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.render('home');
 });
+
 app.get('/modules/new', (req, res) => {
     res.render('modules/new');
 });
+
 app.post('/modules', async (req, res) => {
     const module = new Module(req.body.module);
     await module.save();
     res.redirect(`/modules/${module._id}`)
 });
+
 app.get('/modules', async(req, res) => {
     const modules = await Module.find({});
     res.render('modules/index', { modules });
 });
+
 app.get('/lecturers', async(req, res) => {
     const lecturer = await Lecturer.find({ _id: '624c130e7b5228a4eb7c3fd0'});
     res.render('lecturers/index', { lecturer })
@@ -46,6 +51,16 @@ app.get('/modules/:id', async(req, res) => {
     res.render('modules/show', { module });
 });
 
+app.get('/modules/:id/edit', async (req, res) => {
+    const module = await Module.findById(req.params.id)
+    res.render('modules/edit', { module });
+});
+
+app.put('/modules/:id', async (req, res) => {
+    const { id } = req.params;
+    const module = await Module.findByIdAndUpdate(id, { ...req.body.module });
+    res.redirect(`/modules/${module._id}`)
+});
 
 app.listen(3000, () => {
     console.log('Serving on port 3000')

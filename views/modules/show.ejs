@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show</title>
-</head>
-<body>
+<% layout('layouts/boilerplate')%>
     <h1><%= module.code %>: <%= module.title %></h1>
     <p><%= module.description %></p>
     <div>
         <p><%= module.tasks[0] %></p>
     </div>
-    <a href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
-    <p>
+    <div>
+        <a class="btn btn-info" href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
         <form action="/modules/<%= module._id%>?_method=DELETE" method="POST">
-            <button>Delete</button>
+            <button class="btn btn-danger">Delete</button>
         </form>
-    </p>
+    </div>
+        
     <br>
     <a href="/modules">All Modules</a>
-</body>
-</html>

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const Lecturer = require('./models/lecturer');
@@ -18,6 +19,7 @@ db.once("open", () => {
 
 const app = express();
 
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 

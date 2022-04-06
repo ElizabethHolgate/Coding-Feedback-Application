@@ -73,7 +73,7 @@ app.get('/lecturers', catchAsync(async(req, res) => {
 }));
 
 app.get('/modules/:id', catchAsync(async(req, res) => {
-    const module = await Module.findById(req.params.id);
+    const module = await Module.findById(req.params.id).populate('tasks');
     res.render('modules/show', { module });
 }));
 
@@ -101,6 +101,20 @@ app.post('/modules/:id/tasks', validateTask, catchAsync(async (req, res) => {
     await task.save();
     await module.save();
     res.redirect(`/modules/${module._id}`);
+}));
+
+// app.put('/modules/:id/tasks/:taskId', validateTask, catchAsync(async (req, res) => {
+//     const { id } = req.params;
+//     await Module.findById(id);
+//     await Task.findByIdAndUpdate(taskId, { ...req.body.module });
+//     res.redirect(`/modules/${id}`);
+// }));
+
+app.delete('/modules/:id/tasks/:taskId', catchAsync(async (req, res) => {
+    const { id, taskId } = req.params;
+    await Module.findByIdAndUpdate(id, { $pull: { tasks: taskId } });
+    await Task.findByIdAndDelete(taskId);
+    res.redirect(`/modules/${id}`);
 }));
 
 app.all('*', (req, res, next) => {

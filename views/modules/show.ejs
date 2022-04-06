@@ -3,9 +3,6 @@
         <h1><%= module.code %>: <%= module.title %></h1>
         <p><%= module.description %></p>
         <div>
-            <p><%= module.tasks[0] %></p>
-        </div>
-        <div>
             <a class="btn btn-info" href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
             <form action="/modules/<%= module._id%>?_method=DELETE" method="POST">
                 <button class="btn btn-danger">Delete</button>
@@ -31,6 +28,17 @@
             </div>
             <button class="btn btn-success">Submit</button>
         </form>
+        <% for(let task of module.tasks) { %>
+            <div class="card mb-3 ">
+                <div class="card-body">
+                    <h5 class="card-title">Task: <%= task.task %></h5>
+                    <p class="card-text">Number of answers submitted: <%= task.studentAnswers.length %></p>
+                    <form action="/modules/<%=module._id%>/tasks/<%=task._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% } %>
     </div>
         
     <br>

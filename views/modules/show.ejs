@@ -9,6 +9,9 @@
 <body>
     <h1><%= module.code %>: <%= module.title %></h1>
     <p><%= module.description %></p>
+    <div>
+        <p><%= module.tasks[0] %></p>
+    </div>
     <a href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
     <p>
         <form action="/modules/<%= module._id%>?_method=DELETE" method="POST">

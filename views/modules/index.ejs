@@ -1,11 +1,18 @@
 <% layout('layouts/boilerplate')%>
 
     <h1>All Modules</h1>
-    <div>
-        <a href="/modules/new">Add New Module</a>
+    <div class="row">
+        <div>
+            <a class="btn btn-info" href="/modules/new">Add New Module</a>
+        </div>
+        <div>
+            <br>
+            <ul>
+                <% for (let module of modules){%>
+                    <a href="/modules/<%= module._id %>"><li> <%= module.code %>: <%= module.title %></li></a>
+                <% } %>
+            </ul>
+        </div>
     </div>
-    <ul>
-        <% for (let module of modules){%>
-            <a href="/modules/<%= module._id %>"><li> <%= module.code %>: <%= module.title %></li></a>
-        <% } %>
-    </ul>
+    
+    

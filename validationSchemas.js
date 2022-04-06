@@ -8,3 +8,11 @@ module.exports.moduleValidation = Joi.object({
         tasks: Joi.array()
     }).required()
 });
+
+module.exports.taskValidation = Joi.object({
+    task: Joi.object({
+        task: Joi.string().required(),
+        modelAnswer: Joi.string().required,
+        studentAnswers: Joi.array()
+    }).required()
+});

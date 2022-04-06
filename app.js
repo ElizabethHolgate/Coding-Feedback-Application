@@ -3,11 +3,13 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
-const { moduleValidation } = require('./validationSchemas');
+const { moduleValidation, taskValidation } = require('./validationSchemas');
 const methodOverride = require('method-override');
 const Lecturer = require('./models/lecturer');
 const Module = require('./models/module');
+const Task = require('./models/task');
 const ExpressError = require('./utils/EpressError');
+const req = require('express/lib/request');
 
 let url = "mongodb+srv://elizabeth:GA3zRjUwqtXC6U1W@coding-feedback-applica.kwyi9.mongodb.net/codeFeedbackApplication?retryWrites=true&w=majority";
 mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true});
@@ -29,6 +31,15 @@ app.use(methodOverride('_method'));
 
 const validateModule = (req, res, next) => {
     const { error } = moduleValidation.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+const validateTask = (req, res, next) => {
+    const { error } = taskValidation.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
@@ -81,6 +92,15 @@ app.delete('/modules/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Module.findByIdAndDelete(id);
     res.redirect('/modules');
+}));
+
+app.post('/modules/:id/tasks', validateTask, catchAsync(async (req, res) => {
+    const module = await Module.findById(req.params.id);
+    const task = new Task(req.body.task);
+    module.tasks.push(task);
+    await task.save();
+    await module.save();
+    res.redirect(`/modules/${module._id}`);
 }));
 
 app.all('*', (req, res, next) => {

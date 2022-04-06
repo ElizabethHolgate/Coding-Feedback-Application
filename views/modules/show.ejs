@@ -1,13 +1,35 @@
 <% layout('layouts/boilerplate')%>
-    <h1><%= module.code %>: <%= module.title %></h1>
-    <p><%= module.description %></p>
-    <div>
-        <p><%= module.tasks[0] %></p>
+    <div class="container">
+        <h1><%= module.code %>: <%= module.title %></h1>
+        <p><%= module.description %></p>
+        <div>
+            <p><%= module.tasks[0] %></p>
+        </div>
+        <div>
+            <a class="btn btn-info" href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
+            <form action="/modules/<%= module._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
     </div>
-    <div>
-        <a class="btn btn-info" href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
-        <form action="/modules/<%= module._id%>?_method=DELETE" method="POST">
-            <button class="btn btn-danger">Delete</button>
+    <div class="container">
+        <h2>Add a new task:</h2>
+        <form action="/modules/<%= module._id%>/tasks" method="POST" class="validated-form" novalidate>
+            <div>
+                <label for="task">Task:</label>
+                <textarea class="form-control" name="task[task]" id="task" cols="30" rows="3" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div>
+                <label for="modelAnswer">Model Answer:</label>
+                <textarea class="form-control" name="task[modelAnswer]" id="modelAnswer" cols="30" rows="3" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <button class="btn btn-success">Submit</button>
         </form>
     </div>
         

@@ -41,7 +41,7 @@ router.get('/:id', catchAsync(async(req, res) => {
     res.render('modules/show', { module });
 }));
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const module = await Module.findById(req.params.id)
     if(!module){
         req.flash('error', 'Cannot find that module!');

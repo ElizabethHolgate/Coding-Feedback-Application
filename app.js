@@ -4,13 +4,18 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
-const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
-const Lecturer = require('./models/lecturer');
 const ExpressError = require('./utils/EpressError');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
-const modules = require('./routes/modules');
-const tasks = require('./routes/tasks');
+// const catchAsync = require('./utils/catchAsync');
+// const Lecturer = require('./models/lecturer');
+
+const moduleRoutes = require('./routes/modules');
+const taskRoutes = require('./routes/tasks');
+const userRoutes = require('./routes/users');
 
 let url = "mongodb+srv://elizabeth:GA3zRjUwqtXC6U1W@coding-feedback-applica.kwyi9.mongodb.net/codeFeedbackApplication?retryWrites=true&w=majority";
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -45,23 +50,31 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 });
 
-app.use('/modules', modules);
-app.use('/modules/:id/tasks', tasks);
+app.use('/', userRoutes);
+app.use('/modules', moduleRoutes);
+app.use('/modules/:id/tasks', taskRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/lecturers', catchAsync(async(req, res) => {
-    const lecturer = await Lecturer.find({ _id: '624c130e7b5228a4eb7c3fd0'});
-    res.render('lecturers/index', { lecturer })
-}));
+// app.get('/lecturers', catchAsync(async(req, res) => {
+//     const lecturer = await Lecturer.find({ _id: '624c130e7b5228a4eb7c3fd0'});
+//     res.render('lecturers/index', { lecturer })
+// }));
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page not found!', 404));

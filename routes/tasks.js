@@ -24,6 +24,7 @@ router.post('/', validateTask, catchAsync(async (req, res) => {
     module.tasks.push(task);
     await task.save();
     await module.save();
+    req.flash('success', 'Successfully made a new task!');
     res.redirect(`/modules/${module._id}`);
 }));
 
@@ -38,6 +39,7 @@ router.delete('/:taskId', catchAsync(async (req, res) => {
     const { id, taskId } = req.params;
     await Module.findByIdAndUpdate(id, { $pull: { tasks: taskId } });
     await Task.findByIdAndDelete(taskId);
+    req.flash('success', 'Successfully deleted task!');
     res.redirect(`/modules/${id}`);
 }));
 

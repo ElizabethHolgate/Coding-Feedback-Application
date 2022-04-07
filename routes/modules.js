@@ -1,20 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/EpressError');
 const Module = require('../models/module');
-const { moduleValidation } = require('../validationSchemas');
-const { isLoggedIn } = require('../middleware');
+const { isLoggedIn, isAdmin, validateModule } = require('../middleware');
 
-const validateModule = (req, res, next) => {
-    const { error } = moduleValidation.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
-    }
-}
+
 
 router.get('/new', isLoggedIn, (req, res) => {
     res.render('modules/new');
@@ -22,6 +12,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 
 router.post('/', isLoggedIn, validateModule, catchAsync(async (req, res) => {
     const module = new Module(req.body.module);
+    module.admins.push(req.user._id);
     await module.save();
     req.flash('success', 'Successfully made a new module!');
     res.redirect(`/modules/${module._id}`)
@@ -33,7 +24,7 @@ router.get('/', catchAsync(async(req, res) => {
 }));
 
 router.get('/:id', catchAsync(async(req, res) => {
-    const module = await Module.findById(req.params.id).populate('tasks');
+    const module = await Module.findById(req.params.id).populate('tasks').populate('admins');
     if(!module){
         req.flash('error', 'Cannot find that module!');
         return res.redirect('/modules');
@@ -41,7 +32,7 @@ router.get('/:id', catchAsync(async(req, res) => {
     res.render('modules/show', { module });
 }));
 
-router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, isAdmin, catchAsync(async (req, res) => {
     const module = await Module.findById(req.params.id)
     if(!module){
         req.flash('error', 'Cannot find that module!');

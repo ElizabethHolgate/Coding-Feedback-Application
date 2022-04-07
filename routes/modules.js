@@ -4,6 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/EpressError');
 const Module = require('../models/module');
 const { moduleValidation } = require('../validationSchemas');
+const { isLoggedIn } = require('../middleware');
 
 const validateModule = (req, res, next) => {
     const { error } = moduleValidation.validate(req.body);
@@ -15,11 +16,11 @@ const validateModule = (req, res, next) => {
     }
 }
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
     res.render('modules/new');
 });
 
-router.post('/', validateModule, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateModule, catchAsync(async (req, res) => {
     const module = new Module(req.body.module);
     await module.save();
     req.flash('success', 'Successfully made a new module!');

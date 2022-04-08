@@ -9,7 +9,11 @@
             <div class="navbar-nav">
                 <a class="nav-link" href="/">Home</a>
                 <a class="nav-link" href="/modules">Modules</a>
-                <a class="nav-link" href="/modules/new">New Module</a>
+                <% if(currentUser) { %>
+                    <% if(currentUser.lecturer == true){ %>
+                    <a class="nav-link" href="/modules/new">New Module</a>
+                    <% } %>
+                <% } %>
             </div>
             <div class="navbar-nav ml-auto">
                 <% if(!currentUser){ %>

@@ -1,44 +1,15 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-
 const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/EpressError');
+const { isLoggedIn, isAdmin, validateTask } = require('../middleware');
+const tasks = require('../controllers/tasks');
 
-const Module = require('../models/module');
-const Task = require('../models/task');
-const { taskValidation } = require('../validationSchemas');
 
-const validateTask = (req, res, next) => {
-    const { error } = taskValidation.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
-    }
-}
+router.post('/', validateTask, catchAsync(tasks.createTask));
 
-router.post('/', validateTask, catchAsync(async (req, res) => {
-    const module = await Module.findById(req.params.id);
-    const task = new Task(req.body.task);
-    module.tasks.push(task);
-    await task.save();
-    await module.save();
-    res.redirect(`/modules/${module._id}`);
-}));
-
-// app.put('/modules/:id/tasks/:taskId', validateTask, catchAsync(async (req, res) => {
-//     const { id } = req.params;
-//     await Module.findById(id);
-//     await Task.findByIdAndUpdate(taskId, { ...req.body.module });
-//     res.redirect(`/modules/${id}`);
-// }));
-
-router.delete('/:taskId', catchAsync(async (req, res) => {
-    const { id, taskId } = req.params;
-    await Module.findByIdAndUpdate(id, { $pull: { tasks: taskId } });
-    await Task.findByIdAndDelete(taskId);
-    res.redirect(`/modules/${id}`);
-}));
+router.route('/:taskId')
+    .get(catchAsync(tasks.renderEdit))
+    .put(validateTask, catchAsync(tasks.updateTask))
+    .delete(catchAsync(tasks.deleteTask));
 
 module.exports = router;

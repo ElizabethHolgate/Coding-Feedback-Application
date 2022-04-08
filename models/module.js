@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Task = require('./task');
+const User = require('./user');
 const Schema = mongoose.Schema;
 
 const ModuleSchema = new Schema({
@@ -9,7 +10,11 @@ const ModuleSchema = new Schema({
     tasks: [ {
         type: Schema.Types.ObjectId,
         ref: 'Task'
-    } ]
+    } ],
+    admins: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 ModuleSchema.post('findOneAndDelete', async function (doc) {

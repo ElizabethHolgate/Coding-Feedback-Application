@@ -1,0 +1,28 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <h1 class="text-center">Edit Task</h1>
+    <div class="col-6 offset-3"></div>
+        <form action="/modules/<%=module._id%>/tasks/<%=task._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="task">Task</label>
+                <input class="form-control" type="text" id="task" name="task[task]" value="<%=task.task %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="modelAnswer">Model Answer</label>
+                <input class="form-control" type="text" id="modelAnswer" name="task[modelAnswer]" value="<%=task.modelAnswer %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Update Task</button>
+            </div>
+            
+        </form>
+        
+    <a class="btn btn-primary" href="/modules/<%= module._id%>">Back To Module</a>
+</div>
+</div>

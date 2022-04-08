@@ -6,13 +6,10 @@ const tasks = require('../controllers/tasks');
 
 
 router.post('/', validateTask, catchAsync(tasks.createTask));
-router.delete('/:taskId', catchAsync(tasks.deleteTask));
 
-// app.put('/modules/:id/tasks/:taskId', validateTask, catchAsync(async (req, res) => {
-//     const { id } = req.params;
-//     await Module.findById(id);
-//     await Task.findByIdAndUpdate(taskId, { ...req.body.module });
-//     res.redirect(`/modules/${id}`);
-// }));
+router.route('/:taskId')
+    .get(catchAsync(tasks.renderEdit))
+    .put(validateTask, catchAsync(tasks.updateTask))
+    .delete(catchAsync(tasks.deleteTask));
 
 module.exports = router;

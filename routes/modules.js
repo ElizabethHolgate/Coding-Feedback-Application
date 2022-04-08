@@ -5,11 +5,16 @@ const { isLoggedIn, isAdmin, validateModule, isLecturer } = require('../middlewa
 const modules = require('../controllers/modules');
 
 router.get('/new', isLoggedIn, isLecturer, modules.renderNew);
-router.post('/', isLoggedIn, validateModule, catchAsync(modules.createModule));
-router.get('/', catchAsync(modules.index));
-router.get('/:id', catchAsync(modules.renderModule));
+
+router.route('/')
+    .get(catchAsync(modules.index))
+    .post(isLoggedIn, validateModule, catchAsync(modules.createModule));
+
+router.route('/:id')
+    .get(catchAsync(modules.renderModule))
+    .put(validateModule, catchAsync(modules.updateModule))
+    .delete(catchAsync(modules.deleteModule));
+
 router.get('/:id/edit', isLoggedIn, isAdmin, catchAsync(modules.renderEdit));
-router.put('/:id', validateModule, catchAsync(modules.updateModule));
-router.delete('/:id', catchAsync(modules.deleteModule));
 
 module.exports = router;

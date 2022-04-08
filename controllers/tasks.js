@@ -11,6 +11,23 @@ module.exports.createTask = async (req, res) => {
     res.redirect(`/modules/${module._id}`);
 }
 
+module.exports.renderEdit = async(req, res) => {
+    const module = await Module.findById(req.params.id);
+    const task = await Task.findById(req.params.taskId);
+    if(!task){
+        req.flash('error', 'Cannot find that task!');
+        return res.redirect(`/modules/${module._id}`);
+    }
+    res.render('modules/editTask', { module, task });
+}
+
+module.exports.updateTask = async(req, res) => {
+    const { id, taskId } = req.params;
+    await Task.findByIdAndUpdate(taskId, { ...req.body.task });
+    req.flash('success', 'Successfully updated task!');
+    res.redirect(`/modules/${id}`);
+}
+
 module.exports.deleteTask = async (req, res) => {
     const { id, taskId } = req.params;
     await Module.findByIdAndUpdate(id, { $pull: { tasks: taskId } });

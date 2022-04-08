@@ -27,6 +27,51 @@
             
         </form>
         
+        <div class="row">
+            <div class="col">
+                <h2>Admins:</h2>
+            <h3>Current admins:</h3>
+            <ul>
+                <% for(let admin of module.admins) { %>
+                    <li><%= admin.username %></li>
+                <% } %>
+            </ul>
+            
+            <form action="/modules/<%=module._id%>/edit/admin?_method=PUT" method="POST" novalidate class="validated-form">
+                <div class="mb-3">
+                    <label class="form-label" for="description">Add admin:</label>
+                    <input class="form-control" type="text" id="admin" name="admin" placeholder="admin's username">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Add Admin</button>
+                </div>
+            </form>
+            </div>
+            <div class="col">
+                <h2>Students:</h2>
+            <h3>Current students:</h3>
+            <ul>
+                <% for(let student of module.students) { %>
+                    <li><%= student.username %></li>
+                <% } %>
+            </ul>
+            <div class="mb-3">
+                <form action="/modules/<%=module._id%>/edit/student?_method=PUT" method="POST" novalidate class="validated-form">
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Add student:</label>
+                        <input class="form-control" type="text" id="student" name="student" placeholder="student's username">
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success">Add Student</button>
+                    </div>
+                </form>
+            </div>
+            
+            </div>
+        </div>
+        
+        
+        
     <a class="btn btn-primary" href="/modules/<%= module._id%>">Back To Module</a>
 </div>
 </div>

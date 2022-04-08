@@ -14,6 +14,10 @@ const ModuleSchema = new Schema({
     admins: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
+    }],
+    students: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }]
 });
 

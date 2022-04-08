@@ -5,14 +5,14 @@
         <form action="/modules/<%=module._id%>/tasks/<%=task._id%>?_method=PUT" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="task">Task</label>
-                <input class="form-control" type="text" id="task" name="task[task]" value="<%=task.task %>" required>
+                <textarea class="form-control" name="task[task]" id="task" cols="30" rows="3" required><%= task.task%></textarea>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="modelAnswer">Model Answer</label>
-                <input class="form-control" type="text" id="modelAnswer" name="task[modelAnswer]" value="<%=task.modelAnswer %>" required>
+                <textarea class="form-control" name="task[modelAnswer]" id="task" cols="30" rows="3" required><%= task.modelAnswer%></textarea>
                 <div class="valid-feedback">
                     Looks good!
                 </div>

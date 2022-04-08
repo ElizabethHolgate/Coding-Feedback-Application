@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
-const { isLoggedIn, isAdmin, validateModule } = require('../middleware');
+const { isLoggedIn, isAdmin, validateModule, isLecturer } = require('../middleware');
 const modules = require('../controllers/modules');
 
-router.get('/new', isLoggedIn, modules.renderNew);
+router.get('/new', isLoggedIn, isLecturer, modules.renderNew);
 router.post('/', isLoggedIn, validateModule, catchAsync(modules.createModule));
 router.get('/', catchAsync(modules.index));
 router.get('/:id', catchAsync(modules.renderModule));

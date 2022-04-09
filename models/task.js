@@ -5,7 +5,8 @@ const TaskSchema = new Schema({
     task: String,
     modelAnswer: String,
     studentAnswers: [{
-        student: String,
+        student: {  type: Schema.Types.ObjectId,
+                    ref: 'User'},
         answer: String
     }]
 });

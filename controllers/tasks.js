@@ -1,5 +1,6 @@
 const Module = require('../models/module');
 const Task = require('../models/task');
+const User = require('../models/user');
 
 module.exports.createTask = async (req, res) => {
     const module = await Module.findById(req.params.id);
@@ -49,10 +50,15 @@ module.exports.renderSubmit = async (req, res) => {
 module.exports.submitAnswer = async (req, res) => {
     const { id, taskId } = req.params;
     const task = await Task.findById(taskId);
-    const student = req.user._id;
+    const student = await User.findById(req.user._id);
     const answer = req.body.answer;
-    task.studentAnswers.push({ student, answer });
-    await task.save();
-    req.flash('success', 'Successfully submitted answer!');
-    res.redirect(`/modules/${id}`);
+    if(!task.studentAnswers.some(student => student._id )){
+        task.studentAnswers.push({ student, answer });
+        await task.save();
+        req.flash('success', 'Successfully submitted answer!');
+        res.redirect(`/modules/${id}`);
+    } else {
+        req.flash('error', 'You have already submitted an answer!');
+        res.redirect(`/modules/${id}`);
+    }
 }

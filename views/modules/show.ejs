@@ -46,10 +46,15 @@
                     
                     
                         <% if(currentUser) { %>
-                            <a class="btn btn-success" href="/modules/<%= module._id%>/tasks/<%=task._id%>">Submit Answer</a>
+                            <% for(const student of module.students) { %>
+                                <% if (student._id.toString()==currentUser._id.toString()) { %>
+                                    <a class="btn btn-success" href="/modules/<%= module._id%>/tasks/<%=task._id%>">Submit Answer</a>
+                                <% } %>
+                            <% } %>
                             <% for(const admin of module.admins) { %>
                                 <% if (admin._id.toString()==currentUser._id.toString()) { %>
                                     <div id="admin">
+                                        <a class ="btn btn-warning" href="/modules/<%= module._id%>/tasks/<%=task._id%>/answers">View Student Answers</a>
                                         <a class="btn btn-info" href="/modules/<%= module._id%>/tasks/<%=task._id%>/edit">Edit Task</a>
                                         <form action="/modules/<%=module._id%>/tasks/<%=task._id%>?_method=DELETE" method="POST">
                                             <button class="btn btn-sm btn-danger">Delete Task</button>

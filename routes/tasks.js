@@ -12,5 +12,6 @@ router.route('/:taskId')
     .put(validateTask, catchAsync(tasks.updateTask))
     .delete(catchAsync(tasks.deleteTask));
 router.put('/:taskId/submit', catchAsync(tasks.submitAnswer));
+router.get('/:taskId/answers', isLoggedIn, isAdmin, catchAsync(tasks.renderAnswers));
 
 module.exports = router;

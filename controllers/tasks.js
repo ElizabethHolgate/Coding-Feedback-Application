@@ -62,3 +62,13 @@ module.exports.submitAnswer = async (req, res) => {
         res.redirect(`/modules/${id}`);
     }
 }
+
+module.exports.renderAnswers = async (req, res) => {
+    const task = await Task.findById(req.params.taskId).populate('studentAnswers.student');
+    if(!task){
+        req.flash('error', 'Cannot find that task!');
+        return res.redirect(`/modules/${module}`);
+    } 
+    
+    res.render('modules/showAnswers', { task });
+}

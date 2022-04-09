@@ -1,0 +1,18 @@
+<% layout('layouts/boilerplate')%>
+<div class="container mb-3">
+    <h2>Task: <%= task.task %></h2>
+    <h3>Model Answer:</h3>
+    <textarea class="form-control" readonly><%= task.modelAnswer %></textarea>
+    <h3>Student answers:</h3>
+    <% for(let answer of task.studentAnswers) { %>
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="card-title">Student username: <%= answer.student.username %></div>
+                <p class="card-text">Answer:</p>
+                <textarea class="form-control" readonly><%= answer.answer %></textarea>
+                
+            </div>
+        </div>
+    <% } %>
+           
+</div>

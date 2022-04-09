@@ -5,7 +5,9 @@ module.exports.moduleValidation = Joi.object({
         title: Joi.string().required(),
         code: Joi.string().required(),
         description: Joi.string(),
-        tasks: Joi.array()
+        tasks: Joi.array(),
+        admins: Joi.array(),
+        students: Joi.array()
     }).required()
 });
 

@@ -48,20 +48,30 @@ module.exports.addAdmin = async (req, res) => {
     const { id } = req.params;
     const module = await Module.findById(id);
     const user = await User.findOne({ username: req.body.admin });
-    module.admins.push(user._id);
+    if(module.admins.includes(user._id)){
+        req.flash('error', 'User already admin on this module!');
+        res.redirect(`/modules/${module._id}/edit`);
+    } else {
+        module.admins.push(user._id);
     await module.save();
     req.flash('success', 'Successfully added admin!');
     res.redirect(`/modules/${module._id}/edit`);
+    }
 }
 
 module.exports.addStudent = async (req, res) => {
     const { id } = req.params;
     const module = await Module.findById(id);
     const user = await User.findOne({ username: req.body.student });
-    module.students.push(user._id);
-    await module.save();
-    req.flash('success', 'Successfully added student!');
-    res.redirect(`/modules/${module._id}/edit`);
+    if(module.students.includes(user._id)){
+        req.flash('error', 'Student already enrolled on module!');
+        res.redirect(`/modules/${module._id}/edit`);
+    } else {
+        module.students.push(user._id);
+        await module.save();
+        req.flash('success', 'Successfully added student!');
+        res.redirect(`/modules/${module._id}/edit`);
+    }
 }
 
 module.exports.deleteModule = async (req, res) => {

@@ -73,6 +73,14 @@
                         <button class="btn btn-success">Add Student</button>
                     </div>
                 </form>
+                <form action="/modules/<%=module._id%>/edit/student?_method=DELETE" method="POST">
+                    <select class="form-control mb-3" name="studentDelete">
+                        <% for(let student of module.students) { %>
+                            <option value="<%= student._id %>"><%= student.username %></option>
+                        <% } %>
+                      </select>
+                    <button class="btn btn-sm btn-danger">Delete Student</button>
+                </form>
             </div>
             
             </div>

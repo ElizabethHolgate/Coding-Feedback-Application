@@ -86,3 +86,9 @@ module.exports.deleteAdmin = async (req, res) => {
     await Module.findByIdAndUpdate(id, { $pull: { admins: req.body.adminDelete } });
     res.redirect(`/modules/${id}/edit`);
 }
+
+module.exports.deleteStudent = async (req, res) => {
+    const { id } = req.params;
+    await Module.findByIdAndUpdate(id, { $pull: { students: req.body.studentDelete } });
+    res.redirect(`/modules/${id}/edit`);
+}

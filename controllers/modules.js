@@ -39,9 +39,9 @@ module.exports.createModule = async (req, res) => {
 
 module.exports.updateModule = async (req, res) => {
     const { id } = req.params;
-    const module = await Module.findByIdAndUpdate(id, { ...req.body.module });
+    await Module.findByIdAndUpdate(id, { ...req.body.module });
     req.flash('success', 'Successfully updated module!');
-    res.redirect(`/modules/${module._id}`);
+    res.redirect(`/modules/${id}`);
 }
 
 module.exports.addAdmin = async (req, res) => {
@@ -50,12 +50,12 @@ module.exports.addAdmin = async (req, res) => {
     const user = await User.findOne({ username: req.body.admin });
     if(module.admins.includes(user._id)){
         req.flash('error', 'User already admin on this module!');
-        res.redirect(`/modules/${module._id}/edit`);
+        res.redirect(`/modules/${id}/edit`);
     } else {
         module.admins.push(user._id);
     await module.save();
     req.flash('success', 'Successfully added admin!');
-    res.redirect(`/modules/${module._id}/edit`);
+    res.redirect(`/modules/${id}/edit`);
     }
 }
 
@@ -65,12 +65,12 @@ module.exports.addStudent = async (req, res) => {
     const user = await User.findOne({ username: req.body.student });
     if(module.students.includes(user._id)){
         req.flash('error', 'Student already enrolled on module!');
-        res.redirect(`/modules/${module._id}/edit`);
+        res.redirect(`/modules/${id}/edit`);
     } else {
         module.students.push(user._id);
         await module.save();
         req.flash('success', 'Successfully added student!');
-        res.redirect(`/modules/${module._id}/edit`);
+        res.redirect(`/modules/${id}/edit`);
     }
 }
 
@@ -79,4 +79,10 @@ module.exports.deleteModule = async (req, res) => {
     await Module.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted module!');
     res.redirect('/modules');
+}
+
+module.exports.deleteAdmin = async (req, res) => {
+    const { id } = req.params;
+    await Module.findByIdAndUpdate(id, { $pull: { admins: req.body.adminDelete } });
+    res.redirect(`/modules/${id}/edit`);
 }

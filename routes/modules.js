@@ -18,6 +18,7 @@ router.route('/:id')
 router.get('/:id/edit', isLoggedIn, isAdmin, catchAsync(modules.renderEdit));
 
 router.put('/:id/edit/admin', catchAsync(modules.addAdmin));
+router.delete('/:id/edit/admin', catchAsync(modules.deleteAdmin));
 
 router.put('/:id/edit/student', catchAsync(modules.addStudent));
 

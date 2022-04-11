@@ -23,6 +23,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const moduleRoutes = require('./routes/modules');
 const taskRoutes = require('./routes/tasks');
 const userRoutes = require('./routes/users');
+const resourceRoutes = require('./routes/resources');
 
 let url = "mongodb+srv://elizabeth:GA3zRjUwqtXC6U1W@coding-feedback-applica.kwyi9.mongodb.net/codeFeedbackApplication?retryWrites=true&w=majority";
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -114,6 +115,7 @@ app.use((req, res, next) => {
 app.use('/', userRoutes);
 app.use('/modules', moduleRoutes);
 app.use('/modules/:id/tasks', taskRoutes);
+app.use('/resources', resourceRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');

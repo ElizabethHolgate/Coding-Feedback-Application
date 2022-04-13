@@ -1,4 +1,4 @@
-const { moduleValidation, taskValidation } = require('./validationSchemas');
+const { moduleValidation, taskValidation, resourceValidation } = require('./validationSchemas');
 const ExpressError = require('./utils/ExpressError');
 const Module = require('./models/module');
 const User = require('./models/user');
@@ -55,6 +55,16 @@ module.exports.isEnrolled = async (req, res, next) => {
 
 module.exports.validateTask = (req, res, next) => {
     const { error } = taskValidation.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
+module.exports.validateResource = (req, res, next) => {
+    const { error } = resourceValidation.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)

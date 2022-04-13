@@ -34,7 +34,7 @@ module.exports.createModule = async (req, res) => {
     module.admins.push(req.user._id);
     await module.save();
     req.flash('success', 'Successfully made a new module!');
-    res.redirect(`/modules/${module._id}`)
+    res.redirect(`/modules/${module._id}`);
 }
 
 module.exports.updateModule = async (req, res) => {

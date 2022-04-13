@@ -18,3 +18,13 @@ module.exports.taskValidation = Joi.object({
         studentAnswers: Joi.array()
     }).required()
 });
+
+module.exports.resourceValidation = Joi.object({
+    resource: Joi.object({
+        title: Joi.string().required(),
+        language: Joi.string().required(),
+        url: Joi.string().required(),
+        level: Joi.number().required(),
+        description: Joi.string()
+    }).required()
+});

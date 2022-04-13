@@ -10,11 +10,11 @@
             <% } %>
         <% } %>
         <% for (let resource of resources){%>
-            <div class="card" style="width: 18rem;">
+            <div class="card m-1" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><%= resource.title %><span class="badge badge-secondary">New</span></h5>
                     <p class="card-text"><%= resource.description %></p>
-                    <a href="<%= resource.url %>" class="btn btn-primary" target="_blank">Card link</a>
+                    <a href="<%= resource.url %>" class="btn btn-primary" target="_blank"><%= resource.title %></a>
                     
                 </div>
                 <span class="badge badge-pill badge-primary">kjaldf</span>
@@ -22,10 +22,6 @@
         <% } %>
             <div>
             
-            <ul>
-                <% for (let resource of resources){%>
-                    <a href="/resources/<%= resource._id %>"><li> <%= resource.title %>: <%= resource.description %></li></a>
-                <% } %>
-            </ul>
+            
         </div>
     </div>

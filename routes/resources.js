@@ -12,6 +12,8 @@ router.get('/new', isLoggedIn, isLecturer, (resources.renderNewRes));
 
 router.get('/:resId/edit', isLoggedIn, isLecturer, (resources.renderEditRes));
 
-router.put('/:resId', isLoggedIn, validateResource, catchAsync(resources.updateRes));
+router.route('/:resId')
+    .put( isLoggedIn, validateResource, catchAsync(resources.updateRes))
+    .delete(isLoggedIn, isLecturer, catchAsync(resources.deleteRes));
 
 module.exports = router;

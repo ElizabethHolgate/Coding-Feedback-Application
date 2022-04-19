@@ -30,6 +30,13 @@ module.exports.createRes = async(req, res) => {
 
 module.exports.updateRes = async(req, res) => {
     await Resource.findByIdAndUpdate(req.params.resId, { ... req.body.resource });
-    req.flash('success', 'Successfully updated module!');
+    req.flash('success', 'Successfully updated resource!');
+    res.redirect('/resources');
+}
+
+module.exports.deleteRes = async(req, res) => {
+    const { resId } = req.params;
+    await Resource.findByIdAndDelete(resId);
+    req.flash('success', 'Successfully deleted resource!');
     res.redirect('/resources');
 }

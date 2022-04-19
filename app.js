@@ -22,10 +22,10 @@ const mongoSanitize = require('express-mongo-sanitize');
 // const catchAsync = require('./utils/catchAsync');
 // const Lecturer = require('./models/lecturer');
 
-const one = 'console.writeline("Hello World!");';
-const other = 'console.log("Hello World!)';
+// const one = 'console.writeline("Hello World!");';
+// const other = 'console.log("Hello World!)';
 
-const diff = Diff.diffChars(one, other);
+// const diff = Diff.diffChars(one, other);
 // diff.forEach((part) => {
 //     // green for additions, red for deletions
 //     // grey for common parts
@@ -43,14 +43,14 @@ const diff = Diff.diffChars(one, other);
 //     process.stderr.write(part.value[color]);
 //   });
 
-  diff.forEach((part) => {
-      if(!part.removed){
-        const color = part.added ? 'red' :
-        part.removed ? 'red' : 'grey';
-      process.stderr.write(part.value[color]);
-      }
+//   diff.forEach((part) => {
+//       if(!part.removed){
+//         const color = part.added ? 'red' :
+//         part.removed ? 'red' : 'grey';
+//       process.stderr.write(part.value[color]);
+//       }
     
-  });
+//   });
 
 //console.log(diff);
 

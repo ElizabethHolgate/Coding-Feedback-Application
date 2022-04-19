@@ -12,12 +12,15 @@
         <% for (let resource of resources){%>
             <div class="card m-1" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title"><%= resource.title %><span class="badge badge-secondary">New</span></h5>
+                    <h5 class="card-title"><%= resource.title %></h5>
                     <p class="card-text"><%= resource.description %></p>
                     <a href="<%= resource.url %>" class="btn btn-primary" target="_blank"><%= resource.title %></a>
-                    
+                    <% if(currentUser) { %>
+                        <% if(currentUser.lecturer == true){ %>
+                            <a href="/resources/<%= resource._id %>/edit" class="btn btn-info">Edit <%= resource.title %></a>
+                        <% } %>
+                    <% } %>       
                 </div>
-                <span class="badge badge-pill badge-primary">kjaldf</span>
             </div>
         <% } %>
             <div>

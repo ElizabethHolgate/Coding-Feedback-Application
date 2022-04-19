@@ -2,7 +2,6 @@ const { moduleValidation, taskValidation, resourceValidation } = require('./vali
 const ExpressError = require('./utils/ExpressError');
 const Module = require('./models/module');
 const User = require('./models/user');
-const Task = require('./models/task');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -25,7 +24,6 @@ module.exports.validateModule = (req, res, next) => {
 
 module.exports.isLecturer = async(req, res, next) => {
     const user = await User.findById(req.user._id);
-    console.log(user);
     if(user.lecturer === false) {
         req.flash('error', 'You do not have permission to do that!');
         return res.redirect(`/modules`);

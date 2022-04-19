@@ -8,6 +8,10 @@ router.route('/')
     .get(catchAsync(resources.indexRes))
     .post(isLoggedIn, validateResource, catchAsync(resources.createRes));
 
-router.get('/new', isLoggedIn, (resources.renderNewRes));
+router.get('/new', isLoggedIn, isLecturer, (resources.renderNewRes));
+
+router.get('/:resId/edit', isLoggedIn, isLecturer, (resources.renderEditRes));
+
+router.put('/:resId', isLoggedIn, validateResource, catchAsync(resources.updateRes));
 
 module.exports = router;

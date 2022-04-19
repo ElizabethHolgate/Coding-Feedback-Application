@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate')%>
+    <h1 class="text-center">Edit Resource</h1>
+    <div class="col-6 mb-3 offset-3">
+        <form action="/resources/<%=resource._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" value="<%=resource.title%>" name="resource[title]" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <input class="form-control" type="text" id="description" name="resource[description]" value="<%= resource.description %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="url">URL</label>
+                <input class="form-control" type="url" id="url" name="resource[url]" value="<%= resource.url %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="language">Language</label>
+                <input class="form-control" type="text" id="language" name="resource[language]" value="<%= resource.language %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="level">Degree Year</label>
+                <input class="form-control" type="number" id="level" name="resource[level]" min="1" max="3" value="<%= resource.level %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Must be between 1 and 3.
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Update Resource</button>
+            </div>
+        </form>
+    <a class="btn btn-primary" href="/resources">All Resources</a>
+    </div>

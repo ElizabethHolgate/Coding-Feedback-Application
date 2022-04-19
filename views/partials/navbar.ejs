@@ -15,6 +15,11 @@
                     <% } %>
                 <% } %>
                 <a class="nav-link" href="/resources">Resources</a>
+                <% if(currentUser) { %>
+                    <% if(currentUser.lecturer == true){ %>
+                    <a class="nav-link" href="/resources/new">New Resource</a>
+                    <% } %>
+                <% } %>
             </div>
             <div class="navbar-nav ml-auto">
                 <% if(!currentUser){ %>

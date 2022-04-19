@@ -14,11 +14,45 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const helmet = require('helmet');
+require('colors');
+const Diff = require('diff');
 
 const mongoSanitize = require('express-mongo-sanitize');
 
 // const catchAsync = require('./utils/catchAsync');
 // const Lecturer = require('./models/lecturer');
+
+const one = 'console.writeline("Hello World!");';
+const other = 'console.log("Hello World!)';
+
+const diff = Diff.diffChars(one, other);
+// diff.forEach((part) => {
+//     // green for additions, red for deletions
+//     // grey for common parts
+//     const color = part.added ? 'green' :
+//       part.removed ? 'red' : 'grey';
+//     process.stderr.write(part.value[color]);
+//   });
+//console.log();
+
+// diff.forEach((part) => {
+//     // green for additions, red for deletions
+//     // grey for common parts
+//     const color = part.added ? 'green' :
+//       part.removed ? 'red' : 'grey';
+//     process.stderr.write(part.value[color]);
+//   });
+
+  diff.forEach((part) => {
+      if(!part.removed){
+        const color = part.added ? 'red' :
+        part.removed ? 'red' : 'grey';
+      process.stderr.write(part.value[color]);
+      }
+    
+  });
+
+//console.log(diff);
 
 const moduleRoutes = require('./routes/modules');
 const taskRoutes = require('./routes/tasks');
@@ -61,6 +95,8 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 // app.use(helmet());
+
+
 
 // const scriptSrcUrls = [
 //     "https://stackpath.bootstrapcdn.com/",
@@ -111,7 +147,9 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     next();
 });
-
+app.get('/display', (req, res) => {
+    res.render('display')
+});
 app.use('/', userRoutes);
 app.use('/modules', moduleRoutes);
 app.use('/modules/:id/tasks', taskRoutes);

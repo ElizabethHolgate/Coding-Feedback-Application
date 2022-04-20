@@ -16,9 +16,12 @@
 
 <body class="d-flex flex-column vh-100">
     <%- include('../partials/navbar')%>
-    <main class="container mt-5">
-        <%- include('../partials/flash')%>
-        <%- body %>
+    <main class="d-flex justify-content-center">
+        <div class="w-75 mt-4">
+            <%- include('../partials/flash')%>
+            <%- body %>
+        </div>
+        
     </main>
     <%- include('../partials/footer')%>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

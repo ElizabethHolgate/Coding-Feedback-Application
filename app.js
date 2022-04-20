@@ -22,10 +22,10 @@ const mongoSanitize = require('express-mongo-sanitize');
 // const catchAsync = require('./utils/catchAsync');
 // const Lecturer = require('./models/lecturer');
 
-// const one = 'console.writeline("Hello World!");';
-// const other = 'console.log("Hello World!)';
+// const other = 'console.writeline("Hello World!");';
+// const one = 'console.log("Hello World!)';
 
-// const diff = Diff.diffChars(one, other);
+// const diff = Diff.diffWords(one, other);
 // diff.forEach((part) => {
 //     // green for additions, red for deletions
 //     // grey for common parts
@@ -33,15 +33,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 //       part.removed ? 'red' : 'grey';
 //     process.stderr.write(part.value[color]);
 //   });
-//console.log();
-
-// diff.forEach((part) => {
-//     // green for additions, red for deletions
-//     // grey for common parts
-//     const color = part.added ? 'green' :
-//       part.removed ? 'red' : 'grey';
-//     process.stderr.write(part.value[color]);
-//   });
+// console.log();
 
 //   diff.forEach((part) => {
 //       if(!part.removed){
@@ -52,7 +44,18 @@ const mongoSanitize = require('express-mongo-sanitize');
     
 //   });
 
-//console.log(diff);
+// console.log();
+
+// diff.forEach((part) => {
+//     if(!part.added){
+//       const color = part.removed ? 'red' :
+//       part.added ? 'red' : 'grey';
+//     process.stderr.write(part.value[color]);
+//     }
+  
+// });
+
+// console.log();
 
 const moduleRoutes = require('./routes/modules');
 const taskRoutes = require('./routes/tasks');

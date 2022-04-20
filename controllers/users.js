@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Module = require('../models/module');
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register');
@@ -6,6 +7,14 @@ module.exports.renderRegister = (req, res) => {
 
 module.exports.renderLogin = (req, res) => {
     res.render('users/login');
+}
+
+module.exports.renderProfile = (req, res) => {
+    res.render('users/profile');
+}
+
+module.exports.renderDelete = (req, res) => {
+    res.render('users/delete');
 }
 
 module.exports.createUser = async(req, res) => {
@@ -38,10 +47,6 @@ module.exports.loggout = (req, res) => {
     res.redirect('/modules');
 }
 
-module.exports.showProfile = (req, res) => {
-    res.render('users/profile')
-}
-
 module.exports.addLecturer = async(req, res) => {
     const lecturer = await User.findOne({ username: req.body.lecturer });
     if(lecturer.lecturer){
@@ -52,4 +57,16 @@ module.exports.addLecturer = async(req, res) => {
         req.flash('success', lecturer.username + ' is now a lecturer!');
     }
     res.redirect(`/profile`);
+}
+
+module.exports.deleteAccount = async(req, res) => {
+    const user = await User.findOne({ username: req.body.username });
+
+    // delete user id from array then delete modules that have no admins
+    await Module.updateMany({ admins: user._id },{ $pull: { admins: user._id } });
+    await Module.deleteMany( { admins: { $size: 0} });
+    
+    await User.findByIdAndDelete(user._id);
+    req.flash('success', "We're sorry to see you go " + user.username + "! Your account and data has been deleted!");
+    res.redirect(`/`);
 }

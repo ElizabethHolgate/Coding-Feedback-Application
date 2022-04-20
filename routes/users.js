@@ -15,12 +15,12 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
 
 router.get('/logout', users.loggout);
 
-router.get('/profile', isLoggedIn, users.renderProfile);
+router.get('/profile', isLoggedIn, catchAsync(users.renderProfile));
 
 router.put('/profile/lecturer', isLoggedIn, isLecturer, catchAsync(users.addLecturer));
 
 router.get('/profile/delete', isLoggedIn, users.renderDelete);
 
-router.delete('/profile/delete', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), users.deleteAccount);
+router.delete('/profile/delete', passport.authenticate('local', { failureFlash: true, failureRedirect: '/profile' }), users.deleteAccount);
 
 module.exports = router;

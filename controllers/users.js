@@ -9,8 +9,11 @@ module.exports.renderLogin = (req, res) => {
     res.render('users/login');
 }
 
-module.exports.renderProfile = (req, res) => {
-    res.render('users/profile');
+module.exports.renderProfile = async(req, res) => {
+    const user = await User.findById(req.user._id)
+    const student = await Module.find({ students: user._id });
+    const admin = await Module.find({ admins: user._id });
+    res.render('users/profile', { student, admin });
 }
 
 module.exports.renderDelete = (req, res) => {

@@ -1,33 +1,48 @@
 <% layout('layouts/boilerplate')%>
 
 <h1>All Resources</h1>
-    <div class="row">
-        <% if(currentUser) { %>
-            <% if(currentUser.lecturer == true){ %>
-                <div>
-                    <a class="btn btn-info" href="/resources/new">Add New Resource</a>
+<div class="row m-3">
+    <div class="dropdown mr-3">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          Dropdown link
+        </a>
+      
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>
+      
+</div>
+
+        <div class="row m-3">
+            <% if(currentUser) { %>
+                <% if(currentUser.lecturer == true){ %>
+                    <div>
+                        <a class="btn btn-info" href="/resources/new">Add New Resource</a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+        
+        <div class="row m-2">
+            <% for (let resource of resources){%>
+                <div class="card m-1" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= resource.title %></h5>
+                        <p class="card-text"><%= resource.description %></p>
+                        <a href="<%= resource.url %>" class="btn btn-primary" target="_blank"><%= resource.title %></a>
+                        <% if(currentUser) { %>
+                            <% if(currentUser.lecturer == true){ %>
+                                <a href="/resources/<%= resource._id %>/edit" class="btn btn-info">Edit <%= resource.title %></a>
+                                <form action="/resources/<%= resource._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-sm btn-danger">Delete Resource</button>
+                                </form>
+                            <% } %>
+                        <% } %>       
+                    </div>
                 </div>
             <% } %>
-        <% } %>
-        <% for (let resource of resources){%>
-            <div class="card m-1" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title"><%= resource.title %></h5>
-                    <p class="card-text"><%= resource.description %></p>
-                    <a href="<%= resource.url %>" class="btn btn-primary" target="_blank"><%= resource.title %></a>
-                    <% if(currentUser) { %>
-                        <% if(currentUser.lecturer == true){ %>
-                            <a href="/resources/<%= resource._id %>/edit" class="btn btn-info">Edit <%= resource.title %></a>
-                            <form action="/resources/<%= resource._id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-sm btn-danger">Delete Resource</button>
-                            </form>
-                            <% } %>
-                    <% } %>       
-                </div>
-            </div>
-        <% } %>
-            <div>
-            
-            
-        </div>
+       
     </div>

@@ -26,7 +26,7 @@ module.exports.createUser = async(req, res) => {
 }
 
 module.exports.login = (req, res) => {
-    req.flash('success', 'welcome back!');
+    req.flash('success', 'Welcome back!');
     const redirectUrl = req.session.returnTo || '/modules';
     delete req.session.returnTo;
     res.redirect(redirectUrl);
@@ -36,4 +36,20 @@ module.exports.loggout = (req, res) => {
     req.logout();
     req.flash('success', "Goodbye!");
     res.redirect('/modules');
+}
+
+module.exports.showProfile = (req, res) => {
+    res.render('users/profile')
+}
+
+module.exports.addLecturer = async(req, res) => {
+    const lecturer = await User.findOne({ username: req.body.lecturer });
+    if(lecturer.lecturer){
+        req.flash('error', lecturer.username + ' is already a lecturer!');
+    } else {
+        lecturer.lecturer = true;
+        await lecturer.save();
+        req.flash('success', lecturer.username + ' is now a lecturer!');
+    }
+    res.redirect(`/profile`);
 }

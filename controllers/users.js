@@ -65,7 +65,8 @@ module.exports.addLecturer = async(req, res) => {
 
 module.exports.deleteAccount = async(req, res) => {
     const user = await User.findOne({ username: req.body.username });
-
+    const modules = await Module.find({ admins: user._id }).populate('admins');
+    
     // delete user id from array then delete modules that have no admins
     await Module.updateMany({ admins: user._id },{ $pull: { admins: user._id } });
     await Module.deleteMany( { admins: { $size: 0} });
@@ -73,6 +74,25 @@ module.exports.deleteAccount = async(req, res) => {
     if(!user.lecturer){
         await Module.updateMany( { students: user._id }, { $pull: { students: user._id } });
         await Task.updateMany( { studentAnswers: user._id }, { $pull: { studentAnswers: user._id } });
+    } else {
+        // if lecturer and they are the only admin on a module who is a lecturer delete module
+        const toDelete = [];
+        modules.forEach(m => {
+            d = true;
+            m.admins.forEach(a => {
+                if(a.username != user.username){
+                    if(a.lecturer){
+                        d = false;
+                        console.log(a.username);
+                    }
+                    
+                } 
+            });
+            if(d){
+                toDelete.push(m._id);
+            }
+        });
+        await Module.deleteMany( { _id: toDelete } );
     }
     
     await User.findByIdAndDelete(user._id);

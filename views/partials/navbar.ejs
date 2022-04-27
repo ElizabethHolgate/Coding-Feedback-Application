@@ -8,14 +8,12 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/modules">Modules</a>
                 <% if(currentUser) { %>
+                <a class="nav-link" href="/modules">Modules</a>
                     <% if(currentUser.lecturer == true){ %>
                     <a class="nav-link" href="/modules/new">New Module</a>
                     <% } %>
-                <% } %>
                 <a class="nav-link" href="/resources">Resources</a>
-                <% if(currentUser) { %>
                     <% if(currentUser.lecturer == true){ %>
                     <a class="nav-link" href="/resources/new">New Resource</a>
                     <% } %>

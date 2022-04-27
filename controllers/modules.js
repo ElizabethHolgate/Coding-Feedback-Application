@@ -67,13 +67,14 @@ module.exports.addStudent = async (req, res) => {
     const user = await User.findOne({ username: req.body.student });
     if(module.students.includes(user._id)){
         req.flash('error', 'Student already enrolled on module!');
-        res.redirect(`/modules/${id}/edit`);
+    } else if(user.lecturer) {
+        req.flash('error', user.username + ' is a lecturer and cannot be added as a student!');
     } else {
         module.students.push(user._id);
         await module.save();
         req.flash('success', 'Successfully added student!');
-        res.redirect(`/modules/${id}/edit`);
     }
+    res.redirect(`/modules/${id}/edit`);
 }
 
 module.exports.deleteModule = async (req, res) => {

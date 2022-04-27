@@ -28,6 +28,6 @@ ModuleSchema.post('findOneAndDelete', async function (doc) {
             }
         })
     }
-})
+});
 
 module.exports = mongoose.model('Module', ModuleSchema);

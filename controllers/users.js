@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Module = require('../models/module');
+const task = require('../models/task');
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register');
@@ -39,7 +40,7 @@ module.exports.createUser = async(req, res) => {
 
 module.exports.login = (req, res) => {
     req.flash('success', 'Welcome back!');
-    const redirectUrl = req.session.returnTo || '/modules';
+    const redirectUrl = req.session.returnTo || '/profile';
     delete req.session.returnTo;
     res.redirect(redirectUrl);
 }
@@ -47,7 +48,7 @@ module.exports.login = (req, res) => {
 module.exports.loggout = (req, res) => {
     req.logout();
     req.flash('success', "Goodbye!");
-    res.redirect('/modules');
+    res.redirect('/');
 }
 
 module.exports.addLecturer = async(req, res) => {
@@ -68,6 +69,11 @@ module.exports.deleteAccount = async(req, res) => {
     // delete user id from array then delete modules that have no admins
     await Module.updateMany({ admins: user._id },{ $pull: { admins: user._id } });
     await Module.deleteMany( { admins: { $size: 0} });
+
+    if(!user.lecturer){
+        await Module.updateMany( { students: user._id }, { $pull: { students: user._id } });
+        await Task.updateMany( { studentAnswers: user._id }, { $pull: { studentAnswers: user._id } });
+    }
     
     await User.findByIdAndDelete(user._id);
     req.flash('success', "We're sorry to see you go " + user.username + "! Your account and data has been deleted!");

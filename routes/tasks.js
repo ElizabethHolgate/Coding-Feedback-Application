@@ -7,7 +7,7 @@ const tasks = require('../controllers/tasks');
 
 router.post('/', validateTask, catchAsync(tasks.createTask));
 
-router.get('/:taskId/edit', isLoggedIn, isAdmin, catchAsync(tasks.renderEdit));
+router.get('/:taskId/edit', isAdmin, catchAsync(tasks.renderEdit));
 
 router.route('/:taskId')
     .get(isLoggedIn, isEnrolled, catchAsync(tasks.renderSubmit))

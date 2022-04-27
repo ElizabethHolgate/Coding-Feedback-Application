@@ -4,11 +4,12 @@
         <h1>Code Feedback Home Page</h1>
         
     </div>
+    <% if(currentUser) { %>
     <div class="row align-items-center">
         <a class="btn btn-dark mb-3" href="./modules">List of All Modules</a>
         
     </div>
-    <% if(!currentUser) { %>
+    <% } else { %>
     <div class="row align-items-center">
         <a class="btn btn-success mb-3" href="/login">Login</a>
        

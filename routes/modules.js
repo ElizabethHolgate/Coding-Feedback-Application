@@ -7,11 +7,11 @@ const modules = require('../controllers/modules');
 router.get('/new', isLoggedIn, isLecturer, modules.renderNew);
 
 router.route('/')
-    .get(catchAsync(modules.index))
+    .get(isLoggedIn, catchAsync(modules.index))
     .post(isLoggedIn, validateModule, catchAsync(modules.createModule));
 
 router.route('/:id')
-    .get(catchAsync(modules.renderModule))
+    .get(isLoggedIn, catchAsync(modules.renderModule))
     .put(validateModule, catchAsync(modules.updateModule))
     .delete(catchAsync(modules.deleteModule));
 

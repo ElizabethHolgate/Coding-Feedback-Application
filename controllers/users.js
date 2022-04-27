@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const Module = require('../models/module');
-const task = require('../models/task');
+const Task = require('../models/task');
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register');

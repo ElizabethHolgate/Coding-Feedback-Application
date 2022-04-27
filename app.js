@@ -22,10 +22,10 @@ const mongoSanitize = require('express-mongo-sanitize');
 // const catchAsync = require('./utils/catchAsync');
 // const Lecturer = require('./models/lecturer');
 
-// const other = 'console.writeline("Hello World!");';
-// const one = 'console.log("Hello World!)';
+const other = 'console.writeline("Hello World!");';
+const one = 'console.log("Hello World!)';
 
-// const diff = Diff.diffWords(one, other);
+const diff = Diff.diffWords(one, other);
 // diff.forEach((part) => {
 //     // green for additions, red for deletions
 //     // grey for common parts
@@ -46,16 +46,16 @@ const mongoSanitize = require('express-mongo-sanitize');
 
 // console.log();
 
-// diff.forEach((part) => {
-//     if(!part.added){
-//       const color = part.removed ? 'red' :
-//       part.added ? 'red' : 'grey';
-//     process.stderr.write(part.value[color]);
-//     }
+diff.forEach((part) => {
+    if(!part.added){
+      const color = part.removed ? 'red' :
+      part.added ? 'green' : 'grey';
+    process.stderr.write(part.value[color]);
+    }
   
-// });
+});
 
-// console.log();
+console.log();
 
 const moduleRoutes = require('./routes/modules');
 const taskRoutes = require('./routes/tasks');

@@ -32,13 +32,16 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= resource.title %></h5>
                         <p class="card-text"><%= resource.description %></p>
-                        <a href="<%= resource.url %>" class="btn btn-primary" target="_blank"><%= resource.title %></a>
+                        <a href="<%= resource.url %>" class="btn btn-primary mb-2" target="_blank"><%= resource.title %></a>
                         <% if(currentUser) { %>
                             <% if(currentUser.lecturer == true){ %>
-                                <a href="/resources/<%= resource._id %>/edit" class="btn btn-info">Edit <%= resource.title %></a>
-                                <form action="/resources/<%= resource._id %>?_method=DELETE" method="POST">
-                                    <button class="btn btn-sm btn-danger">Delete Resource</button>
-                                </form>
+                                <div class="text-right">
+                                    <a href="/resources/<%= resource._id %>/edit" class="btn btn-info mb-2 ml-2">Edit</a>
+                                    <form action="/resources/<%= resource._id %>?_method=DELETE" method="POST">
+                                        <button class="btn btn-danger mb-2 ml-2">Delete</button>
+                                    </form>
+                                </div>
+                                
                             <% } %>
                         <% } %>       
                     </div>

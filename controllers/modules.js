@@ -50,9 +50,10 @@ module.exports.addAdmin = async (req, res) => {
     const user = await User.findOne({ username: req.body.admin });
     if(!user){
         req.flash('error', 'User not found! Please check the username is spelt correctly!');
-    }
-    else if(module.admins.includes(user._id)){
+    } else if(module.admins.includes(user._id)){
         req.flash('error', user.username + ' is already admin on this module!');
+    } else if(module.students.includes(user._id)){
+        req.flash('error', user.username + ' is a student on this module!');
     } else {
         module.admins.push(user._id);
         await module.save();

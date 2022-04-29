@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate')%>
 <div class="container mb-3">
     <h3>Task: <%= task.task %></h3>
-    <p>
+    <samp>
         <% diff.forEach(d => { %>
             <% if(d.removed) { %>
                 <font color="red">
@@ -13,7 +13,7 @@
                 </font>
             <% } %>
         <% }) %>
-    </p>
+            </samp>
     <p><%= feedback %></p>
     <p><%= percent %></p>
 </div>

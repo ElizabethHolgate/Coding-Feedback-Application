@@ -14,48 +14,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const helmet = require('helmet');
-require('colors');
-const Diff = require('diff');
-
 const mongoSanitize = require('express-mongo-sanitize');
-
-// const catchAsync = require('./utils/catchAsync');
-// const Lecturer = require('./models/lecturer');
-
-const other = 'console.writeline("Hello World!");';
-const one = 'console.log("Hello World!)';
-
-const diff = Diff.diffWords(one, other);
-// diff.forEach((part) => {
-//     // green for additions, red for deletions
-//     // grey for common parts
-//     const color = part.added ? 'green' :
-//       part.removed ? 'red' : 'grey';
-//     process.stderr.write(part.value[color]);
-//   });
-// console.log();
-
-//   diff.forEach((part) => {
-//       if(!part.removed){
-//         const color = part.added ? 'red' :
-//         part.removed ? 'red' : 'grey';
-//       process.stderr.write(part.value[color]);
-//       }
-    
-//   });
-
-// console.log();
-
-diff.forEach((part) => {
-    if(!part.added){
-      const color = part.removed ? 'red' :
-      part.added ? 'green' : 'grey';
-    process.stderr.write(part.value[color]);
-    }
-  
-});
-
-console.log();
 
 const moduleRoutes = require('./routes/modules');
 const taskRoutes = require('./routes/tasks');
@@ -162,10 +121,6 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-// app.get('/lecturers', catchAsync(async(req, res) => {
-//     const lecturer = await Lecturer.find({ _id: '624c130e7b5228a4eb7c3fd0'});
-//     res.render('lecturers/index', { lecturer })
-// }));
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page not found!', 404));

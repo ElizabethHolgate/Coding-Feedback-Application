@@ -18,11 +18,11 @@ router.route('/:id')
 router.get('/:id/edit', isLoggedIn, isAdmin, catchAsync(modules.renderEdit));
 
 router.route('/:id/edit/admin')
-    .put(catchAsync(modules.addAdmin))
-    .delete(catchAsync(modules.deleteAdmin));
+    .put(isAdmin, isLecturer, catchAsync(modules.addAdmin))
+    .delete(isAdmin, isLecturer, catchAsync(modules.deleteAdmin));
 
 router.route('/:id/edit/student')
-    .put(catchAsync(modules.addStudent))
-    .delete(catchAsync(modules.deleteStudent));
+    .put(isAdmin, isLecturer, catchAsync(modules.addStudent))
+    .delete(isAdmin, isLecturer, catchAsync(modules.deleteStudent));
 
 module.exports = router;

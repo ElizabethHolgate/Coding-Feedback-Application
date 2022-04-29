@@ -45,66 +45,30 @@ module.exports.renderSubmit = async (req, res) => {
     if(!task){
         req.flash('error', 'Cannot find that task!');
         return res.redirect(`/modules/${module._id}`);
-    } 
+    }
     res.render('modules/tasks/submit', { module, task });
 }
 
 module.exports.submitAnswer = async (req, res) => {
     const { id, taskId } = req.params;
     const task = await Task.findById(taskId);
+    const module = await Module.findById(id);
     const student = await User.findById(req.user._id);
     const answer = req.body.answer;
-    const regex = /^[A-Za-z0-9 ]+$/;
-    const diff = Diff.diffWords(answer, task.modelAnswer);
-    const lastChar = task.modelAnswer.slice(-1)
-    let feedback = '';
-    let percent = '';
-    
-        if(lastChar != regex){
-            if(answer.slice(-1) != lastChar){
-                feedback = "You missed something off the end of your code!";
-            }
-        }
-        let same = 0;
-        let total = 0;
-        diff.forEach(d => {
-            if(d.removed){
-                total += d.count;
-            } else if(!d.added){
-                same += d.count;
-                total+= d.count;
-            }
-        });
-        percent = 'Your answer shares ' + Math.round((same/total)*100) +'% similarity with the model answer!';
-
-    // if(!task.studentAnswers.some(student => student._id )){
-        
+    // if(!task.studentAnswers.some(s => student._id )){
+    //     task.studentAnswers.push({ student, answer });
+    //     await task.save();
+    //     this.renderAutoFeedback(answer, module, task);
     // } else {
     //     req.flash('error', 'You have already submitted an answer!');
+    //     res.redirect(`/modules/${id}`);
     // }
-    task.studentAnswers.push({ student, answer });
-    await task.save();
-    req.flash('success', 'Successfully submitted answer!');
-    res.render('modules/tasks/autoFeedback', { diff, answer, task, feedback, module, percent });
-}
 
-module.exports.renderAnswers = async (req, res) => {
-    const task = await Task.findById(req.params.taskId).populate('studentAnswers.student');
-    const module = await Module.findById(req.params.id);
-    if(!task){
-        req.flash('error', 'Cannot find that task!');
-        return res.redirect(`/modules/${module._id}`);
-    } 
-    res.render('modules/tasks/showAnswers', { task, module });
-}
-
-module.exports.renderAutoFeedback = async(req, res) => {
     const regex = /^[A-Za-z0-9 ]+$/;
-    const { id, taskId } = req.params;
-    const answer = req.body.answer;
-    const module = await Module.findById(id);
-    const task = await Task.findById(taskId);
     const diff = Diff.diffWords(answer, task.modelAnswer);
+    // if(diff.length < 3){
+    //     diff = Diff.diffChars(answer, task.modelAnswer)
+    // }
     const lastChar = task.modelAnswer.slice(-1)
     let feedback = '';
 
@@ -123,7 +87,30 @@ module.exports.renderAutoFeedback = async(req, res) => {
             total+= d.count;
         }
     });
-    let percent = 'Your answer shares ' + Math.round((same/total)*100) +'% similarity with the model answer!';
+    const similarity = Math.round((same/total)*100);
+    const percent = 'Your answer shares ' + similarity +'% similarity with the model answer!';
 
+    task.studentAnswers.push({ student, answer, similarity });
+    await task.save();
+    req.flash('success', 'Successfully submitted answer!');
     res.render('modules/tasks/autoFeedback', { diff, answer, task, feedback, module, percent });
+}
+
+module.exports.renderAnswers = async (req, res) => {
+    const task = await Task.findById(req.params.taskId).populate('studentAnswers.student');
+    const module = await Module.findById(req.params.id);
+    if(!task){
+        req.flash('error', 'Cannot find that task!');
+        return res.redirect(`/modules/${module._id}`);
+    } 
+    res.render('modules/tasks/showAnswers', { task, module });
+}
+
+module.exports.submitComment = async (req, res) => {
+    const task = await Task.findById(req.params.taskId).populate('studentAnswers.student');
+    if(!task){
+        req.flash('error', 'Cannot find that task!');
+        return res.redirect(`/modules/${module._id}`);
+    }
+    
 }

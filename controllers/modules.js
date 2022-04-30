@@ -87,8 +87,28 @@ module.exports.deleteModule = async (req, res) => {
 
 module.exports.deleteAdmin = async (req, res) => {
     const { id } = req.params;
-    await Module.findByIdAndUpdate(id, { $pull: { admins: req.body.adminDelete } });
-    res.redirect(`/modules/${id}/edit`);
+    const module = await Module.findById(id).populate('admins');
+    const admin = await User.findById(req.body.adminDelete);
+    if(module.admins.length < 2){
+        req.flash('error', 'Module must have at least one admin!');
+        res.redirect(`/modules/${id}/edit`);
+    }
+    const toDelete = true;
+    module.admins.forEach(a => {
+        if(a._id != admin._id){
+            if(admin.lecturer){
+                d = false;
+            }
+        } 
+    });
+    if(toDelete){
+        await Module.findByIdAndUpdate(id, { $pull: { admins: admin._id } });
+        res.redirect(`/modules/${id}/edit`);
+    } else {
+        req.flash('error', 'Module must have at least one admin who is a lecturer!');
+        res.redirect(`/modules/${id}/edit`);
+    }
+    
 }
 
 module.exports.deleteStudent = async (req, res) => {

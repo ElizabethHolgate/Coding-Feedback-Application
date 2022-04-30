@@ -2,7 +2,6 @@ const Module = require('../models/module');
 const Task = require('../models/task');
 const User = require('../models/user');
 const Diff = require('diff');
-const { count } = require('../models/user');
 
 module.exports.createTask = async (req, res) => {
     const module = await Module.findById(req.params.id);
@@ -103,14 +102,36 @@ module.exports.renderAnswers = async (req, res) => {
         req.flash('error', 'Cannot find that task!');
         return res.redirect(`/modules/${module._id}`);
     } 
+    // console.log(task.studentAnswers[0]._id);
     res.render('modules/tasks/showAnswers', { task, module });
 }
 
+module.exports.renderComment = async (req, res) => {
+    const { id, taskId, answerId } = req.params;
+    const module = await Module.findById(id);
+    let answer = {};
+    const task = await Task.findById(taskId).populate('studentAnswers.student');
+    task.studentAnswers.forEach(a => {
+        if(a._id == answerId){
+            answer = a;
+        }
+    });
+    res.render('modules/tasks/submitComment', { module, task, answer });
+}
+
 module.exports.submitComment = async (req, res) => {
-    const task = await Task.findById(req.params.taskId).populate('studentAnswers.student');
+    const { id, taskId, answerId } = req.params;
+    const task = await Task.findById(taskId);
+    const comment = { username: req.user.username, comment: req.body.comment }
     if(!task){
         req.flash('error', 'Cannot find that task!');
-        return res.redirect(`/modules/${module._id}`);
+        return res.redirect(`/modules/${id}/tasks/${taskId}/answers`);
     }
-    
+    task.studentAnswers.forEach(a => {
+        if(a._id == answerId){
+            a.comments.push(comment);
+        }
+    });
+    await task.save();
+    return res.redirect(`/modules/${id}/tasks/${taskId}/answers/${answerId}`);
 }

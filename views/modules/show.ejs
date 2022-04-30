@@ -8,9 +8,9 @@
             <% for(const admin of module.admins) { %>
                 <% if (admin._id.toString()==currentUser._id.toString()) { %>
                     <div id="admin">
-                        <a class="btn btn-info" href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
+                        <a class="btn btn-info mb-2" href="/modules/<%= module._id%>/edit">Edit <%= module.code %> Details</a>
                         <form action="/modules/<%= module._id%>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger">Delete Module</button>
+                            <button class="btn btn-danger mb-2">Delete Module</button>
                         </form>
                     </div>
                
@@ -25,14 +25,14 @@
                     Looks good!
                 </div>
             </div>
-            <div>
+            <div class="mb-2">
                 <label for="modelAnswer">Model Answer:</label>
                 <textarea class="form-control" name="task[modelAnswer]" id="modelAnswer" cols="30" rows="3" required></textarea>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-            <button class="btn btn-success">Submit</button>
+            <button class="btn btn-success mb-2">Submit</button>
         </form>
         <% } %>
             <% } %>
@@ -54,8 +54,10 @@
                             <% for(const admin of module.admins) { %>
                                 <% if (admin._id.toString()==currentUser._id.toString()) { %>
                                     <div id="admin">
+                                        <% if(task.studentAnswers.length > 0) { %>
                                         <a class ="btn btn-warning" href="/modules/<%= module._id%>/tasks/<%=task._id%>/answers">View Student Answers</a>
-                                        <a class="btn btn-info" href="/modules/<%= module._id%>/tasks/<%=task._id%>/edit">Edit Task</a>
+                                        <% } %>
+                                        <a class="btn btn-info mb-2" href="/modules/<%= module._id%>/tasks/<%=task._id%>/edit">Edit Task</a>
                                         <form action="/modules/<%=module._id%>/tasks/<%=task._id%>?_method=DELETE" method="POST">
                                             <button class="btn btn-sm btn-danger">Delete Task</button>
                                         </form>
@@ -72,4 +74,4 @@
     </div>
         
     <br>
-    <a href="/modules">All Modules</a>
+    <a href="/modules" class="btn btn-primary mb-2">All Modules</a>

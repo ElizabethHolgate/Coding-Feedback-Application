@@ -10,14 +10,14 @@ const ModuleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Task'
     } ],
-    admins: [{
+    admins: [ {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }],
-    students: [{
+    } ],
+    students: [ {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    } ]
 });
 
 ModuleSchema.post('findOneAndDelete', async function (doc) {

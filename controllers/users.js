@@ -83,7 +83,6 @@ module.exports.deleteAccount = async(req, res) => {
                 if(a.username != user.username){
                     if(a.lecturer){
                         d = false;
-                        console.log(a.username);
                     }
                     
                 } 

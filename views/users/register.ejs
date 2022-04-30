@@ -19,8 +19,12 @@
                     </div>
                 </div>
                 <div class="mb-3">
+                    <p class=""></p>
                     <label class="form-label" for="password">Password</label>
-                    <input class="form-control" type="password" id="password" name="password" required>
+                    <input class="form-control" type="password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[.#?!@$ %^&*-]).{8,}$" id="password" name="password" required>
+                    <div class="form-text text-muted">
+                        Your password must be at least 8 characters including a capital letter, a lower case letter, a number and a special character.
+                      </div>
                     <div class="valid-feedback">
                         Looks good!
                     </div>

@@ -4,13 +4,19 @@
     <h3>Model Answer:</h3>
     <textarea class="form-control" readonly><%= task.modelAnswer %></textarea>
     <h3>Student answers:</h3>
+    <form action=""></form>
     <% for(let answer of task.studentAnswers) { %>
         <div class="card mb-3">
             <div class="card-body">
                 <div class="card-title">Student username: <%= answer.student.username %></div>
                 <p class="card-text">Answer:</p>
-                <textarea class="form-control" readonly><%= answer.answer %></textarea>
-                
+                <textarea class="form-control mb-2" readonly><%= answer.answer %></textarea>
+                <% if(answer.comments > 0) { %>
+                    <% answer.comments.forEach(comment => { %>
+                        <div class="card-body"><p class="card-text"><%= comment.user.username %>: <%= comment.comment %></p></div>
+                    <% }); %>
+                <% } %>
+                <!-- <a href="/modules/<%= module._id %>/tasks/<%= task._id %>/answers/<%= answer._id %>" class="btn-sm btn-info">Leave Comment</a> -->
             </div>
         </div>
     <% } %>

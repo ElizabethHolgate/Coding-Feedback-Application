@@ -13,7 +13,7 @@ const ExpressError = require('./utils/ExpressError');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-//const helmet = require('helmet');
+const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 
 const moduleRoutes = require('./routes/modules');

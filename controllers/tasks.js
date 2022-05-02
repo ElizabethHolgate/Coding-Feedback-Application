@@ -65,9 +65,7 @@ module.exports.submitAnswer = async (req, res) => {
 
     const regex = /^[A-Za-z0-9 ]+$/;
     const diff = Diff.diffWords(answer, task.modelAnswer);
-    // if(diff.length < 3){
-    //     diff = Diff.diffChars(answer, task.modelAnswer)
-    // }
+    const diffChar = Diff.diffChars(answer, task.modelAnswer);
     const lastChar = task.modelAnswer.slice(-1)
     let feedback = '';
 
@@ -78,7 +76,7 @@ module.exports.submitAnswer = async (req, res) => {
     }
     let same = 0;
     let total = 0;
-    diff.forEach(d => {
+    diffChar.forEach(d => {
         if(d.removed){
             total += d.count;
         } else if(!d.added){

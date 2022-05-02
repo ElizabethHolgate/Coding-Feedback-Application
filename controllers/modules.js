@@ -66,7 +66,9 @@ module.exports.addStudent = async (req, res) => {
     const { id } = req.params;
     const module = await Module.findById(id);
     const user = await User.findOne({ username: req.body.student });
-    if(module.students.includes(user._id)){
+    if(!user){
+        req.flash('error', 'User not found! Please check the username is spelt correctly!');
+    } else if(module.students.includes(user._id)){
         req.flash('error', 'Student already enrolled on module!');
     } else if(user.lecturer) {
         req.flash('error', user.username + ' is a lecturer and cannot be added as a student!');
@@ -114,14 +116,5 @@ module.exports.deleteAdmin = async (req, res) => {
 module.exports.deleteStudent = async (req, res) => {
     const { id } = req.params;
     await Module.findByIdAndUpdate(id, { $pull: { students: req.body.studentDelete } });
-    // const module = await Module.findById(id).populate('tasks');
-    // module.tasks.forEach(task => {
-    //     let i = 0;
-    //     task.studentAnswers.forEach(answer => {
-            
-    //     });
-    //     console.log(task.studentAnswers);
-    // });
-    
     res.redirect(`/modules/${id}/edit`);
 }

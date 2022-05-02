@@ -11,10 +11,27 @@ module.exports.renderLogin = (req, res) => {
 }
 
 module.exports.renderProfile = async(req, res) => {
-    const user = await User.findById(req.user._id)
-    const student = await Module.find({ students: user._id });
+    const user = await User.findById(req.user._id);
+    const student = await Module.find({ students: user._id }).populate('tasks');
     const admin = await Module.find({ admins: user._id });
-    res.render('users/profile', { student, admin });
+    let answers = [];
+
+    if(student.length > 0){
+        student.forEach(module => {
+            module.tasks.forEach(task => {
+                task.studentAnswers.forEach(answer => {
+                    if(user._id.equals(answer.student)){
+                        if(answer.comments.length > 0){
+                            answers.push(answer);
+                        }
+                    }
+                });
+                
+            });
+            
+        });
+    }
+    res.render('users/profile', { student, admin, answers });
 }
 
 module.exports.renderDelete = (req, res) => {

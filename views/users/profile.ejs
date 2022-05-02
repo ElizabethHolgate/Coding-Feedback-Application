@@ -7,7 +7,6 @@
             <h6>Username: <%= currentUser.username %></h6>
             <h6>Email: <%= currentUser.email %></h6>
         </div>
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
       </div>
       
       <% if(currentUser.lecturer == true){ %>
@@ -48,7 +47,19 @@
                 <% } %>
               </ul>
           </div>
-          <% } %>
+
+          <div class="card ml-2" style="width: 18rem;">
+            <h5 class="card-header">Feedback from admins:</h5>
+            <div class="card-body">
+                <% for(let answer of answers) { %>
+                    <p><b>Your answer: <%= answer.answer %><br> Similarity with model answer: answer.similarity</b></p>
+                    <% for(let comment of answer.comments) { %>
+                        <p><%= comment.comment %> <br><%= comment.username %></p>
+                    <% } %>
+                <% } %>
+            </div>
+          </div>
+        <% } %>
 </div>
 <div class="d-flex align-items-end flex-column bd-highlight mb-3">
     <a href="/profile/delete" class="btn btn-danger">Delete Account</a>

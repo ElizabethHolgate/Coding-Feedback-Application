@@ -12,11 +12,20 @@
         <% } %>
         
             <br>
-            <ul>
+                <div class="row m-2">
+                    
+                
                 <% for (let module of modules){%>
-                    <a href="/modules/<%= module._id %>"><li> <%= module.code %>: <%= module.title %></li></a>
+                    <div class="card m-1" style="width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><%= module.code %>: <%= module.title %></h5>
+                          <p class="card-text"><%= module.description %></p>
+                          <a href="/modules/<%= module._id %>" class="btn btn-primary"><%= module.code %></a>
+                        </div>
+                      </div>
+                    <!-- <a href="/modules/<%= module._id %>"><li> <%= module.code %>: <%= module.title %></li></a> -->
                 <% } %>
-            </ul>
+            </div>
         </div>
     </div>
     

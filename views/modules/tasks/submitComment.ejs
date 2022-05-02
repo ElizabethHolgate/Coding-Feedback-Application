@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <div class="col-6 offset-3">
+        <h1 class="text-center">Leave Comment</h1>
+        <div class="card mb-3">
+            <h6 class="card-header text-center">Answer</h6>
+            <div class="card-body">
+                <div class="card-title">Student username: <%= answer.student.username %></div>
+                <p class="card-text">Similarity to model answer: <%= answer.similarity %>%</p>
+                <p class="card-text">Answer:</p>
+                <textarea class="form-control mb-2" readonly><%= answer.answer %></textarea>
+            </div>
+        </div>
+        <% if(answer.comments.length > 0) { %>
+            <div class="card mb-3">
+                <h6 class="card-header text-center">Comments</h6>
+                <ul class="list-group list-group-flush">
+                        <% answer.comments.forEach(comment => { %>
+                            <li class="list-group-item">
+                                <p class="card-text"><%= comment.username %>: <%= comment.comment %></p></li>
+                        <% }); %>
+                    </ul>
+                </div>
+        <% } %>
+        <div class="card mb-3">
+            <div class="card-body">
+                <form action="/modules/<%= module._id %>/tasks/<%= task._id %>/answers/<%= answer._id %>" method="POST" novalidate class="validated-form">
+                    <div class="mb-3">
+                        <label class="form-label" for="comment">Comment</label>
+                        <textarea class="form-control" name="comment" id="comment" cols="30" rows="3" required></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success">Submit Comment</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        <div class="mb-2">
+            <a class="btn btn-primary" href="/modules/<%= module._id %>/tasks/<%= task._id %>/answers">Back to Student Answers</a>
+                <a class="btn btn-secondary" href="/modules/<%= module._id %>">Back to Module</a>
+        </div>   
+    </div>
+</div>
+    

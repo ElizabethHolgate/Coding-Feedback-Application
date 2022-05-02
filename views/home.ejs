@@ -1,13 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Home Code Feedback</h1>
-    <a href="./modules">List All Modules</a>
-</body>
-</html>
+<% layout('layouts/boilerplate')%>
+<div class="container-fluid">
+    <div class="row mb-5">
+        <h1>Code Feedback Home Page</h1>
+        
+    </div>
+    <% if(currentUser) { %>
+    <div class="row align-items-center">
+        <a class="btn btn-dark mb-3" href="./modules">List of All Modules</a>
+        
+    </div>
+    <% } else { %>
+    <div class="row align-items-center">
+        <a class="btn btn-success mb-3" href="/login">Login</a>
+       
+    </div>
+    <div class="row align-items-center">
+        <a class="btn btn-primary mb-3" href="/register">Register</a>
+       
+    </div>
+    <% } %>
+</div>
+
+    

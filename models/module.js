@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Task = require('./task');
-const User = require('./user');
 const Schema = mongoose.Schema;
 
 const ModuleSchema = new Schema({
@@ -11,10 +10,14 @@ const ModuleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Task'
     } ],
-    admins: [{
+    admins: [ {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    } ],
+    students: [ {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    } ]
 });
 
 ModuleSchema.post('findOneAndDelete', async function (doc) {
@@ -25,6 +28,6 @@ ModuleSchema.post('findOneAndDelete', async function (doc) {
             }
         })
     }
-})
+});
 
 module.exports = mongoose.model('Module', ModuleSchema);

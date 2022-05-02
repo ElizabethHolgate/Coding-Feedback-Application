@@ -1,0 +1,66 @@
+<% layout('layouts/boilerplate')%>
+<h1><%= currentUser.username %>'s Profile</h1>
+<div class="row mb-3">
+    <div class="card ml-2" style="width: 18rem;">
+        <h5 class="card-header">Account Details</h5>
+        <div class="card-body">
+            <h6>Username: <%= currentUser.username %></h6>
+            <h6>Email: <%= currentUser.email %></h6>
+        </div>
+      </div>
+      
+      <% if(currentUser.lecturer == true){ %>
+      <div class="card ml-2" style="width: 18rem;">
+        <h5 class="card-header">New Lecturer</h5>
+        <div class="card card-body">
+            <form action="/profile/lecturer?_method=PUT" method="POST" novalidate class="validated-form">
+                <div class="mb-3">
+                    <label class="form-label" for="lecturer">Type the lecturer's username below:</label>
+                    <input class="form-control" type="text" id="lecturer" name="lecturer" placeholder="lecturer's username">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Add Lecturer</button>
+                </div>
+            </form>
+        </div>
+      </div>
+      <% } %>
+      
+</div>
+<div class="row mb-3">
+    <% if(admin.length > 0){ %>
+        <div class="card ml-2" style="width: 18rem;">
+          <h5 class="card-header">You are an admin on these modules:</h5>
+          <ul class="list-group list-group-flush">
+              <% for(let module of admin) { %>
+                  <li class="list-group-item"><a href="/modules/<%= module._id %>"><%= module.code %>: <%= module.title %></a></li>
+              <% } %>
+            </ul>
+        </div>
+        <% } %>
+        <% if(student.length > 0){ %>
+          <div class="card ml-2" style="width: 18rem;">
+            <h5 class="card-header">You are a student on these modules:</h5>
+            <ul class="list-group list-group-flush">
+                <% for(let module of student) { %>
+                    <li class="list-group-item"><a href="/modules/<%= module._id %>"><%= module.code %>: <%= module.title %></a></li>
+                <% } %>
+              </ul>
+          </div>
+
+          <div class="card ml-2" style="width: 18rem;">
+            <h5 class="card-header">Feedback from admins:</h5>
+            <div class="card-body">
+                <% for(let answer of answers) { %>
+                    <p><b>Your answer: <%= answer.answer %><br> Similarity with model answer: answer.similarity</b></p>
+                    <% for(let comment of answer.comments) { %>
+                        <p><%= comment.comment %> <br><%= comment.username %></p>
+                    <% } %>
+                <% } %>
+            </div>
+          </div>
+        <% } %>
+</div>
+<div class="d-flex align-items-end flex-column bd-highlight mb-3">
+    <a href="/profile/delete" class="btn btn-danger">Delete Account</a>
+</div>

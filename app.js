@@ -13,7 +13,7 @@ const ExpressError = require('./utils/ExpressError');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-const helmet = require('helmet');
+//const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 
 const moduleRoutes = require('./routes/modules');
@@ -67,12 +67,16 @@ app.use(flash());
 //     "https://kit.fontawesome.com/",
 //     "https://cdn.jsdelivr.net",
 //     "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+//     "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js",
+//     "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js",
+//     "https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js",
 // ];
 // const styleSrcUrls = [
 //     "https://kit-free.fontawesome.com/",
 //     "https://stackpath.bootstrapcdn.com/",
 //     "https://fonts.googleapis.com/",
 //     "https://use.fontawesome.com/",
+//     "https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css",
 // ];
 // const connectSrcUrls = [];
 // const fontSrcUrls = [];

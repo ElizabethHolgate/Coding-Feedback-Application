@@ -1,4 +1,10 @@
 <% layout('layouts/boilerplate')%>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/resources">Resources</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit <%=resource.title%></li>
+    </ol>
+  </nav>
     <h1 class="text-center">Edit Resource</h1>
     <div class="col-6 mb-3 offset-3">
         <form action="/resources/<%=resource._id%>?_method=PUT" method="POST" novalidate class="validated-form">
@@ -41,8 +47,8 @@
                 </div>
             </div>
             <div class="mb-3">
-                <button class="btn btn-success">Update Resource</button>
+                <button class="btn btn-success"><i class="fa-regular fa-check"></i> Update Resource</button>
             </div>
         </form>
-    <a class="btn btn-primary" href="/resources">All Resources</a>
+    <a class="btn btn-primary" href="/resources"><i class="fa-regular fa-arrow-left"></i> All Resources</a>
     </div>

@@ -1,4 +1,11 @@
 <% layout('layouts/boilerplate')%>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/modules">Modules</a></li>
+      <li class="breadcrumb-item"><a href="/modules/<%= module._id%>"><%= module.code %></a></li>
+      <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol>
+  </nav>
 <div class="d-flex justify-content-center">
     <div class="card w-75 text-left m-2 mb-4">
         <h5 class="card-header text-center">Edit Module</h5>
@@ -26,13 +33,16 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-success">Update Module</button>
+                    <button class="btn btn-success"><i class="fa-regular fa-check"></i> Update Module</button>
                     
                 </div>
                 
             </form>
         </div>
-        <a class="btn btn-primary m-3" href="/modules/<%= module._id%>">Back To Module</a>
+        <div>
+            <a class="btn btn-primary m-3" href="/modules/<%= module._id%>"><i class="fa-regular fa-arrow-left"></i> Back To Module</a>
+        </div>
+        
     </div>
     
     
@@ -53,7 +63,7 @@
                     <input class="form-control" type="text" id="admin" name="admin" placeholder="admin's username" required>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-sm btn-success">Add Admin</button>
+                    <button class="btn btn-sm btn-success"><i class="fa-regular fa-check"></i> Add Admin</button>
                 </div>
             </form>
             <form action="/modules/<%=module._id%>/edit/admin?_method=DELETE" method="POST">
@@ -63,7 +73,7 @@
                         <option value="<%= admin._id %>"><%= admin.username %></option>
                     <% } %>
                   </select>
-                <button class="btn btn-sm btn-danger">Delete Admin</button>
+                <button class="btn btn-sm btn-danger"><i class="fa-regular fa-trash-can"></i> Delete Admin</button>
             </form>
         </div>
     </div>
@@ -82,7 +92,7 @@
                     <input class="form-control" type="text" id="student" name="student" placeholder="student's username" required>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-sm btn-success">Add Student</button>
+                    <button class="btn btn-sm btn-success"><i class="fa-regular fa-check"></i> Add Student</button>
                 </div>
             </form>
             <form action="/modules/<%=module._id%>/edit/student?_method=DELETE" method="POST">
@@ -92,8 +102,13 @@
                         <option value="<%= student._id %>"><%= student.username %></option>
                     <% } %>
                   </select>
-                <button class="btn btn-sm btn-danger">Delete Student</button>
+                <button class="btn btn-sm btn-danger"><i class="fa-regular fa-trash-can"></i> Delete Student</button>
             </form>
         </div>
+        
     </div>
+    
 </div>
+<form action="/modules/<%= module._id%>?_method=DELETE" method="POST">
+    <button class="btn btn-danger mb-2"><i class="fa-regular fa-trash-can"></i> Delete Module</button>
+</form>

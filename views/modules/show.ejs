@@ -1,5 +1,10 @@
 <% layout('layouts/boilerplate')%>
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/modules">Modules</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><%= module.code %></li>
+    </ol>
+  </nav>
 
     <div class="container">
         <h1><%= module.code %>: <%= module.title %></h1>
@@ -8,10 +13,8 @@
             <% for(const admin of module.admins) { %>
                 <% if (admin._id.toString()==currentUser._id.toString()) { %>
                     <div id="admin">
-                        <a class="btn btn-info mb-2" href="/modules/<%= module._id%>/edit">Edit <%= module.code %></a>
-                        <form action="/modules/<%= module._id%>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger mb-2">Delete Module</button>
-                        </form>
+                        <a class="btn btn-info mb-2" href="/modules/<%= module._id%>/edit"><i class="fa-regular fa-pen-to-square"></i> <%= module.code %></a>
+                        
                     </div>
                
     </div>
@@ -32,7 +35,7 @@
                     Looks good!
                 </div>
             </div>
-            <button class="btn btn-success mb-2">Submit</button>
+            <button class="btn btn-success mb-2"><i class="fa-regular fa-check"></i> Submit</button>
         </form>
         <% } %>
             <% } %>
@@ -55,14 +58,14 @@
                                 <% if (admin._id.toString()==currentUser._id.toString()) { %>
                                     <div id="admin">
                                         <% if(task.studentAnswers.length > 0) { %>
-                                        <a class ="btn btn-warning mb-2" href="/modules/<%= module._id%>/tasks/<%=task._id%>/answers">View Student Answers</a>
+                                        <a class ="btn btn-warning mb-2" href="/modules/<%= module._id%>/tasks/<%=task._id%>/answers"><i class="fa-solid fa-eye"></i> Student Answers</a>
                                         <% } %>
                                         
                                         <div class="row">
-                                            <a class="btn btn-sm btn-info mb-2 mr-2 ml-3" href="/modules/<%= module._id%>/tasks/<%=task._id%>/edit">Edit Task</a>
+                                            <a class="btn btn-sm btn-info mb-2 mr-2 ml-3" href="/modules/<%= module._id%>/tasks/<%=task._id%>/edit"><i class="fa-regular fa-pen-to-square"></i> Task</a>
                                         
                                         <form action="/modules/<%=module._id%>/tasks/<%=task._id%>?_method=DELETE" method="POST">
-                                            <button class="btn btn-sm btn-danger">Delete Task</button>
+                                            <button class="btn btn-sm btn-danger"><i class="fa-regular fa-trash-can"></i> Task</button>
                                         </form>
                                     </div>
                                     </div>
@@ -78,4 +81,4 @@
     </div>
         
     <br>
-    <a href="/modules" class="btn btn-primary mb-2">All Modules</a>
+    <a href="/modules" class="btn btn-primary mb-2"><i class="fa-regular fa-arrow-left"></i> All Modules</a>

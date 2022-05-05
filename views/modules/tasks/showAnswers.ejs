@@ -1,5 +1,12 @@
 <% layout('layouts/boilerplate')%>
 <div class="container mb-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/modules">Modules</a></li>
+          <li class="breadcrumb-item"><a href="/modules/<%= module._id%>"><%= module.code %></a></li>
+          <li class="breadcrumb-item active" aria-current="page">Show Student Answers</li>
+        </ol>
+      </nav>
     <h2>Task: <%= task.task %></h2>
     <h3>Model Answer:</h3>
     <textarea class="form-control" readonly><%= task.modelAnswer %></textarea>
@@ -16,11 +23,11 @@
                                 <p class="card-text"><%= comment.username %>: <%= comment.comment %></p>
                         <% }); %>
                     <% } %>
-                    <a href="/modules/<%= module._id %>/tasks/<%= task._id %>/answers/<%= answer._id %>" class="btn-sm btn-info">Leave Comment</a>
+                    <a href="/modules/<%= module._id %>/tasks/<%= task._id %>/answers/<%= answer._id %>" class="btn-sm btn-info"><i class="fa-solid fa-comments"></i> Comment</a>
     
                 </div>
             </div>
         <% } %>
     
-    <a class="btn btn-primary" href="/modules/<%= module._id %>">Back To Module</a>       
+    <a class="btn btn-primary" href="/modules/<%= module._id %>"><i class="fa-regular fa-arrow-left"></i> Back To Module</a>       
 </div>

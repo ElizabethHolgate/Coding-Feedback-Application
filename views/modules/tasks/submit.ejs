@@ -1,6 +1,12 @@
 <% layout('layouts/boilerplate')%>
 <div class="container">
-    
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/modules">Modules</a></li>
+          <li class="breadcrumb-item"><a href="/modules/<%= module._id%>"><%= module.code %></a></li>
+          <li class="breadcrumb-item active" aria-current="page">Edit</li>
+        </ol>
+      </nav>
         <h1 class="text-left">Submit Answer for: </h1>
         <h2 class="text-left"><%=task.task%></h2>
         <form action="/modules/<%=module._id%>/tasks/<%=task._id%>/submit?_method=PUT" method="POST" novalidate class="validated-form">
@@ -13,11 +19,11 @@
                 </div>
             </div>
             <div class="mb-3">
-                <button class="btn btn-success">Submit</button>
+                <button class="btn btn-success"><i class="fa-regular fa-check"></i> Submit</button>
             </div>
             
         </form>
-        <a class="btn btn-primary" href="/modules/<%= module._id%>">Back To Module</a>
+        <a class="btn btn-primary" href="/modules/<%= module._id%>"><i class="fa-regular fa-arrow-left"></i> Back To Module</a>
     </div>
     
 

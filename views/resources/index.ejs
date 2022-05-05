@@ -1,26 +1,17 @@
 <% layout('layouts/boilerplate')%>
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Resources</li>
+    </ol>
+  </nav>
 <h1>All Resources</h1>
-<!-- <div class="row m-3">
-    <div class="dropdown mr-3">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown link
-        </a>
-      
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-      
-</div> -->
+
 
         <div class="row m-3">
             <% if(currentUser) { %>
                 <% if(currentUser.lecturer == true){ %>
                     <div>
-                        <a class="btn btn-info" href="/resources/new">Add New Resource</a>
+                        <a class="btn btn-info" href="/resources/new"><i class="fa-regular fa-plus"></i> New Resource</a>
                     </div>
                 <% } %>
             <% } %>
@@ -36,9 +27,9 @@
                         <% if(currentUser) { %>
                             <% if(currentUser.lecturer == true){ %>
                                 <div class="text-right">
-                                    <a href="/resources/<%= resource._id %>/edit" class="btn btn-info mb-2 ml-2">Edit</a>
+                                    <a href="/resources/<%= resource._id %>/edit" class="btn btn-info mb-2 ml-2"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
                                     <form action="/resources/<%= resource._id %>?_method=DELETE" method="POST">
-                                        <button class="btn btn-danger mb-2 ml-2">Delete</button>
+                                        <button class="btn btn-danger mb-2 ml-2"><i class="fa-regular fa-trash-can"></i> Delete</button>
                                     </form>
                                 </div>
                                 

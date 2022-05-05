@@ -1,6 +1,12 @@
 <% layout('layouts/boilerplate')%>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/modules">Modules</a></li>
+      <li class="breadcrumb-item active" aria-current="page">New Module</li>
+    </ol>
+  </nav>
 <div class="row">
-   
+    
     <div class="col-6 offset-3">
         <h1 class="text-center">New Module</h1>
         <form action="/modules" method="POST" novalidate class="validated-form">
@@ -23,10 +29,10 @@
                 <input class="form-control" type="text" id="description" name="module[description]">
             </div>
             <div class="mb-3">
-                <button class="btn btn-success">Add Module</button>
+                <button class="btn btn-success"><i class="fa-regular fa-check"></i> Add Module</button>
             </div>
             
         </form>
-    <a class="btn btn-primary" href="/modules">All Modules</a>
+    <a class="btn btn-primary" href="/modules"><i class="fa-regular fa-arrow-left"></i> All Modules</a>
     </div>
 </div>

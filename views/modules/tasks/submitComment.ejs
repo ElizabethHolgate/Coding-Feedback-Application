@@ -1,4 +1,12 @@
 <% layout('layouts/boilerplate')%>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/modules">Modules</a></li>
+      <li class="breadcrumb-item"><a href="/modules/<%= module._id%>"><%= module.code %></a></li>
+      <li class="breadcrumb-item"><a href="/modules/<%= module._id%>/tasks/<%= task._id %>/answers">Show Student Answers</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Submit Comment</li>
+    </ol>
+  </nav>
 <div class="row">
     <div class="col-6 offset-3">
         <h1 class="text-center">Leave Comment</h1>
@@ -33,15 +41,15 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-success">Submit Comment</button>
+                        <button class="btn btn-success"><i class="fa-regular fa-check"></i> Submit Comment</button>
                     </div>
                     
                 </form>
             </div>
         </div>
         <div class="mb-2">
-            <a class="btn btn-primary" href="/modules/<%= module._id %>/tasks/<%= task._id %>/answers">Back to Student Answers</a>
-                <a class="btn btn-secondary" href="/modules/<%= module._id %>">Back to Module</a>
+            <a class="btn btn-primary" href="/modules/<%= module._id %>/tasks/<%= task._id %>/answers"><i class="fa-regular fa-arrow-left"></i> Back to Student Answers</a>
+                <a class="btn btn-secondary" href="/modules/<%= module._id %>"><i class="fa-regular fa-angles-left"></i> Back to Module</a>
         </div>   
     </div>
 </div>

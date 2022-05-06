@@ -1,0 +1,48 @@
+
+.navbar{
+    background-color: rgb(61, 2, 112);
+}
+
+a.nav-link{
+    color: rgb(233, 214, 250);
+}
+
+a.navbar-brand{
+    color: rgb(233, 214, 250);
+}
+
+.text-muted{
+    color: aliceblue;
+}
+
+.footer{
+    background-color:   rgb(61, 2, 112);
+}
+
+.breadcrumb{
+    background-color: white;
+    
+}
+
+.card{
+    background-color: rgb(249, 248, 249);
+}
+
+a.breadcrumb-item{
+    color: rgb(88, 1, 164);
+}
+
+a.breadcrumb{
+    color: rgb(88, 1, 164);
+}
+
+.btn-primary{
+    background-color: rgb(88, 1, 164);
+    border-color: rgb(88, 1, 164);
+}
+
+.btn-primary:hover{
+    background-color: rgb(246, 241, 251);
+    color: rgb(88, 1, 164);
+    border-color: rgb(88, 1, 164);
+}

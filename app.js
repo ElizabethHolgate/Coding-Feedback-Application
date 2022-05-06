@@ -20,9 +20,10 @@ const moduleRoutes = require('./routes/modules');
 const taskRoutes = require('./routes/tasks');
 const userRoutes = require('./routes/users');
 const resourceRoutes = require('./routes/resources');
+const MongoDBStore = require('connect-mongo');
 
-let url = "mongodb+srv://elizabeth:GA3zRjUwqtXC6U1W@coding-feedback-applica.kwyi9.mongodb.net/codeFeedbackApplication?retryWrites=true&w=majority";
-mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
+let dbUrl = "mongodb+srv://elizabeth:GA3zRjUwqtXC6U1W@coding-feedback-applica.kwyi9.mongodb.net/codeFeedbackApplication?retryWrites=true&w=majority";
+mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -41,9 +42,11 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || 'thisisasecret!';
+
 const sessionConfig = {
     name: 'session',
-    secret: 'thisisasecret!',
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {

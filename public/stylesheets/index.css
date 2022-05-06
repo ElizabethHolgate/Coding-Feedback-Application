@@ -1,14 +1,13 @@
-
 .navbar{
-    background-color: rgb(61, 2, 112);
+    background-color: rgb(47, 2, 86);
 }
 
 a.nav-link{
-    color: rgb(233, 214, 250);
+    color: rgb(245, 238, 250);
 }
 
 a.navbar-brand{
-    color: rgb(233, 214, 250);
+    color: rgb(245, 238, 250);
 }
 
 .text-muted{
@@ -16,7 +15,7 @@ a.navbar-brand{
 }
 
 .footer{
-    background-color:   rgb(61, 2, 112);
+    background-color:   rgb(47, 2, 86);
 }
 
 .breadcrumb{

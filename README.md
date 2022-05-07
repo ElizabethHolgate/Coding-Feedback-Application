@@ -21,7 +21,7 @@ Clone using git and then use NPM to install dependencies.
 $ git clone https://github.com/ElizabethHolgate/Coding-Feedback-Application.git
 $ cd ../Coding-Feedback-Application
 $ npm install
-$ npm run 
+$ npm start app.js
 ```
 ## Screenshots
 ### Lecturer Account

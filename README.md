@@ -1,5 +1,5 @@
 # Code Feedback Prototype Application
-Code Feedback is a prototype application developed as part of my Final Stage Computing Project. The Heroku hosted website is available [here](https://code-feedback.herokuapp.com/).
+Code Feedback is a prototype application developed as part of my Final Stage Computing Project. A live, public version of the website, hosted by Heroku, is available [here](https://code-feedback.herokuapp.com/).
 
 ## Table of Contents
 1. [General Info](#general-info)
@@ -19,9 +19,9 @@ A list of technologies used within the project:
 Clone using git and then use NPM to install dependencies.
 ```
 $ git clone https://github.com/ElizabethHolgate/Coding-Feedback-Application.git
-$ cd ../Coding-Feedback-Application/app.js
+$ cd ../Coding-Feedback-Application
 $ npm install
-$ npm start
+$ npm run 
 ```
 ## Screenshots
 ### Lecturer Account

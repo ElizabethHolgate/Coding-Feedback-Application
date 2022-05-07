@@ -7,7 +7,7 @@ Code Feedback is a prototype application developed as part of my Final Stage Com
 3. [Installation](#installation)
 4. [Screenshots](#screenshots)
 ### General Info
-This application is aimed at University lecturers and students to aid in teaching basic coding principles. It allows lecturers to set tasks and students to submit responses. The app also provides automated feedback to students in response to their answers.
+This application is aimed at University lecturers and students to aid in teaching basic coding principles. It allows lecturers to set tasks and students to submit responses. The app also provides automated feedback to students in response to their answers by comparing them to the model answer.
 ## Technologies
 A list of technologies used within the project:
 * [EJS](https://ejs.co)

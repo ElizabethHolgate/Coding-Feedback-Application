@@ -8,6 +8,7 @@
         </ol>
       </nav>
     <h3>Task: <%= task.task %></h3>
+    <p>Text in <font color="red">red</font> is where your answer differs from the model answer. Text in <font color="black">black</font> is where your answer is the same as the model answer. Text in <font color="blue">blue</font> is something you missed.</p>
     <samp>
         <% diff.forEach(d => { %>
             <% if(d.removed) { %>
@@ -18,6 +19,14 @@
                 <font color="black">
                     <%= d.value %>
                 </font>
+            <% } else if(d.added) {%>
+                <% for(i=0; i<d.value.length; i++) { %>
+                    <% if(d.value.charAt(i) == (/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/)) {%>
+                        <font color="blue">
+                            <%= d.value %>
+                        </font>
+                    <% } %>
+                <% } %>
             <% } %>
         <% }) %>
             </samp>

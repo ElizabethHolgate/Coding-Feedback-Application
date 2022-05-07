@@ -82,6 +82,8 @@ module.exports.submitAnswer = async (req, res) => {
         } else if(!d.added){
             same += d.count;
             total+= d.count;
+        } else if(d.added){
+            same -= d.count;
         }
     });
     const similarity = Math.round((same/total)*100);

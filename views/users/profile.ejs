@@ -52,7 +52,7 @@
             <h5 class="card-header">Feedback from admins:</h5>
             <div class="card-body">
                 <% for(let answer of answers) { %>
-                    <p><b>Your answer: <%= answer.answer %><br> Similarity with model answer: answer.similarity</b></p>
+                    <p><b>Your answer: <%= answer.answer %><br> Similarity with model answer: <%= answer.similarity %>%</b></p>
                     <% for(let comment of answer.comments) { %>
                         <p><%= comment.comment %> <br><%= comment.username %></p>
                     <% } %>

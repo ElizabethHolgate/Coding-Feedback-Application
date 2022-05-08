@@ -20,16 +20,17 @@
                     <%= d.value %>
                 </font>
             <% } else if(d.added) {%>
-                <% for(i=0; i<d.value.length; i++) { %>
-                    <% if(d.value.charAt(i) == (/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/)) {%>
+                <% for(i=0; i<d.value.length; i++) { v=d.value.split(''); %>
+                    <% if(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/.test(v[i])) {%>
                         <font color="blue">
-                            <%= d.value %>
+                            <%= v[i] %>
                         </font>
                     <% } %>
                 <% } %>
             <% } %>
         <% }) %>
             </samp>
+            <p></p>
     <p><%= feedback %></p>
     <p><%= percent %></p>
 </div>

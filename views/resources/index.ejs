@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= resource.title %></h5>
                         <p class="card-text"><%= resource.description %></p>
-                        <a href="<%= resource.url %>" class="btn btn-primary mb-2" target="_blank"><%= resource.title %></a>
+                        <a href="<%= resource.url %>" class="btn btn-primary mb-2" target="_blank"><i class="fa-regular fa-up-right-from-square"></i> <%= resource.title %></a>
                         <% if(currentUser) { %>
                             <% if(currentUser.lecturer == true){ %>
                                 <div class="text-right">
